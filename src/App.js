@@ -55,13 +55,14 @@ class Table extends React.Component{
         .then(results => {
             return results.json();
         }).then(data =>{
-            let cardsR = data.results.map((card) =>{
-                return(
-                    <p key={card.results}>
-                        <li key={card.cards.name} />
-                    </p>
-                )
-            });
+            let cardsR = data.results.map(
+                    (card) =>{
+                        return(
+                            <p key={card.results}>
+                                <li key={card.cards.name} />
+                            </p>
+                        )
+                    });
             this.setState({cards: cardsR});
             console.log("state", this.state.cards)
         })
