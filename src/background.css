@@ -1,9 +1,19 @@
+.mainContainer{
+    background-color: black;
+    fill-opacity: 50%;
+    text-align: center;
+}
 .gridChild{
     display: inline-grid;
     width: 5%;
     height: 5%;
+    z-index: 1;
+    position: relative;
 }
 .bodyDiv{
-    color: #000;
-    opacity: 50%;
+    display: inline-block;
+    z-index: 2;
+    position: absolute;
+    top: 25%;
+    border: 3px purple;
 }
