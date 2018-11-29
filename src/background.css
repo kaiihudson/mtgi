@@ -1,0 +1,9 @@
+.gridChild{
+    display: inline-grid;
+    width: 5%;
+    height: 5%;
+}
+.bodyDiv{
+    color: #000;
+    opacity: 50%;
+}

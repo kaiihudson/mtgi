@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 
 class Background extends React.Component {
     constructor(props){
@@ -13,7 +12,7 @@ class Background extends React.Component {
             }).then(data => {
                 let pictures = data.results.map((pic)=>{
                     return(
-                        <div key={pic.results}>
+                        <div className="gridChild" key={pic.result}>
                             <img alt="background" src={pic.picture.medium} />
 
                         </div>
