@@ -1,13 +1,16 @@
 .mainContainer{
+    background-color: black;
+    box-shadow: inset 0 0 0 100px gray(0, 0.74);
 }
 .gridChild{
+    padding: 5px;
     display: inline-grid;
-    width: 4%;
-    height: 4%;
+    grid-gap: 0;
     z-index: 1;
     position: relative;
 }
 .bodyDiv{
+    box-shadow: inset 0 0 0 500px rgba(0,0,0,0.74);
     z-index: 2;
     position: absolute;
     top: 25%;
@@ -16,6 +19,7 @@
     border: 3px purple;
     color: white;
     background-color: black;
+    text-align: center;
 }
 #logo{
     ;

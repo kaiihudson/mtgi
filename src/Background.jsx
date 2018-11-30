@@ -3,30 +3,30 @@ import React from 'react';
 class Background extends React.Component {
     constructor(props){
         super(props);
-        this.state = {pictures: [],}
+        this.state = {cardsImages: [],}
     }
     componentDidMount(){
-        fetch('https://randomuser.me/api/?results=500')
-            .then(results => {
-                return results.json();
+        fetch('https://api.magicthegathering.io/v1/cards/?type=basic land&set=BFZ')
+            .then(cards => {
+                return cards.json();
             }).then(data => {
-                let pictures = data.results.map((pic)=>{
+                let pictures = data.cards.map((card)=>{
                     return(
-                        <div className="gridChild" key={pic.result}>
-                            <img alt="background" src={pic.picture.medium} />
+                        <div className="gridChild" key={card.cards}>
+                            <img alt="background" src={card.imageUrl} />
 
                         </div>
                     )
                 });
-            this.setState({pictures: pictures});
-            console.log("state", this.state.pictures);
+            this.setState({cardsImages: pictures});
+            console.log("state", this.state.cardsImages);
         })
     }
     render(){
         return(
             <div className="container2">
                 <div className="container1">
-                    {this.state.pictures}
+                    {this.state.cardsImages}
                 </div>
             </div>
         )
