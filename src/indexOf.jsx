@@ -27,16 +27,24 @@ class MainComponent extends React.Component{
 class Mode extends React.Component{
     constructor(){
         super();
-        this.state = {mode:'', isLoggedIn: false};
+        this.state = {mode:'',};
+        this.onClick1 = this.onClick1.bind(this);
+        this.onClick2 = this.onClick2.bind(this);
+        this.onClick3 = this.onClick3.bind(this);
     }
-    handleClickA(){
-        console.log("value")
+    onClick1(){
+        this.setState({
+            mode: "Binder"
+        })
     }
-    handleClickB(){
-        console.log("value2")
-    }
-    handleClickC(){
-        console.log("value3")
+    onClick2(){
+        this.setState({
+            mode: "Decks"
+        })
+    }onClick3(){
+        this.setState({
+            mode: "Profile"
+        })
     }
     render(){
         const modePicker = this.state.mode;
@@ -54,9 +62,9 @@ class Mode extends React.Component{
 
         return (
             <div>
-                <button onClick={Mode.handleClickA}> Binder </button>
-                <button onClick={this.handleClickB}> Decks </button>
-                <button onClick={this.handleClickC}> Profile </button>
+                <button onClick={this.onClick1}> Binder </button>
+                <button onClick={this.onClick2}> Decks </button>
+                <button onClick={this.onClick3}> Profile </button>
                 {render}
             </div>
 
