@@ -10,7 +10,7 @@ class Background extends React.Component {
             .then(cards => {
                 return cards.json();
             }).then(data => {
-                let pictures = data.cards.map((card)=>{
+                let cards = data.cards.map((card)=>{
                     return(
                         <div className="gridChild" key={card.cards}>
                             <img alt="background" src={card.imageUrl} />
@@ -18,17 +18,15 @@ class Background extends React.Component {
                         </div>
                     )
                 });
-            this.setState({cardsImages: pictures});
+            this.setState({cardsImages: cards});
             console.log("state", this.state.cardsImages);
         })
     }
     render(){
         return(
-            <div className="container2">
                 <div className="container1">
                     {this.state.cardsImages}
                 </div>
-            </div>
         )
     }
 }
