@@ -12,7 +12,11 @@ html{
     display: inline-grid;
     z-index: 1;
     position: relative;
-    width: 18%;
+    width: 10%;
+    height: 33%;
+    max-width: 100vh;
+    max-height: 100vh;
+
 
 }
 .bodyDiv{

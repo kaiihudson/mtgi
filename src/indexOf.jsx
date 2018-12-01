@@ -71,6 +71,13 @@ class Mode extends React.Component{
             )
     }
 }
-
+class Binder extends React.Component{
+    constructor(props){
+        super(props);
+        this.state={
+            searchFor: {}
+        }
+    }
+}
 
 export default MainComponent
