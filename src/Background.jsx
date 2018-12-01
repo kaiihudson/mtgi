@@ -19,7 +19,7 @@ class Background extends React.Component {
                     )
                 });
             this.setState({cardsImages: cards});
-            console.log("state", this.state.cardsImages);
+//            console.log("state", this.state.cardsImages);
         })
     }
     render(){

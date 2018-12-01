@@ -25,8 +25,8 @@ class MainComponent extends React.Component{
 }
 
 class Mode extends React.Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {mode:'',};
         this.onClick1 = this.onClick1.bind(this);
         this.onClick2 = this.onClick2.bind(this);
@@ -41,7 +41,8 @@ class Mode extends React.Component{
         this.setState({
             mode: "Decks"
         })
-    }onClick3(){
+    }
+    onClick3(){
         this.setState({
             mode: "Profile"
         })
@@ -51,7 +52,7 @@ class Mode extends React.Component{
         let render;
 
         if (modePicker === "Binder"){
-            render = <div>you're in binder</div>;
+            render = <Binder />;
         } else if(modePicker === "Decks"){
             render = <div>you're in decks</div>;
         } else if(modePicker === "Profile"){
@@ -75,8 +76,57 @@ class Binder extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            searchFor: {}
-        }
+            searchFor: {},
+            results: [],
+            nameP: '',
+            name: '',
+            typeP: '',
+            type: '',
+            colorP: '',
+            color: '',
+        };
+        this.handleChange1 = this.handleChange1.bind(this);
+        this.handleChange2 = this.handleChange2.bind(this);
+        this.handleChange3 = this.handleChange3.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    handleChange1(event){
+        this.setState({nameP: event.target.value});
+    }
+    handleChange2(event){
+        this.setState({typeP: event.target.value});
+    }
+    handleChange3(event){
+        this.setState({colorP: event.target.value});
+    }
+    handleSubmit(event){
+        event.preventDefault();
+        if (this.state.nameP !== ''){this.setState({name: "name=?" + this.state.nameP});}
+        if (this.state.typeP !== ''){this.setState({type: "type=?" +  this.state.typeP});}
+        if (this.state.colorP !== ''){this.setState({color: "color=?" + this.state.colorP});}
+        this.setState({searchFor: this.state.name + this.state.type + this.state.color});
+        console.log(this.state.searchFor)
+    };
+    render(){
+        return(
+            <div className="form">
+                <form onSubmit={this.handleSubmit}>
+                    <input type="text" value={this.state.nameP} placeholder="Name" onChange={this.handleChange1}/>
+                    <input type="text" value={this.state.typeP} placeholder="Type" onChange={this.handleChange2}/>
+                    <input type="text" value={this.state.colorP} placeholder="Color" onChange={this.handleChange3}/>
+                    <input type="submit"/>
+                </form>
+                <div className="resultOutput">
+                    {this.state.results !== [] &&
+                    <table>
+                        <tbody>
+                        {this.state.results}
+                        </tbody>
+                    </table>
+                    }
+                </div>
+            </div>
+        )
     }
 }
 
