@@ -101,9 +101,9 @@ class Binder extends React.Component{
     }
     handleSubmit(event){
         event.preventDefault();
-        if (this.state.nameP !== ''){this.setState({name: "name=?" + this.state.nameP});}
-        if (this.state.typeP !== ''){this.setState({type: "type=?" +  this.state.typeP});}
-        if (this.state.colorP !== ''){this.setState({color: "color=?" + this.state.colorP});}
+        if (this.state.nameP !== ''){this.setState({name: "name=?" + this.state.nameP + "&"});}
+        if (this.state.typeP !== ''){this.setState({type: "type=?" +  this.state.typeP + "&"});}
+        if (this.state.colorP !== ''){this.setState({color: "color=?" + this.state.colorP + "&"});}
         this.setState({searchFor: this.state.name + this.state.type + this.state.color});
         console.log(this.state.searchFor)
     };
