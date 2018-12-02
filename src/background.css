@@ -20,7 +20,7 @@ html{
 
 }
 .bodyDiv{
-    box-shadow: inset 0 0 0 500px rgba(0,0,0,0.74);
+    box-shadow: inset 0 0 0 1000px rgba(0,0,0,0.74);
     overflow: hidden;
     z-index: 2;
     position: absolute;

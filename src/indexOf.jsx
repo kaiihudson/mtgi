@@ -78,42 +78,31 @@ class Binder extends React.Component{
         this.state={
             searchFor: {},
             results: [],
-            nameP: '',
-            name: '',
-            typeP: '',
-            type: '',
-            colorP: '',
-            color: '',
+            searchElems: {
+                name: '',
+                type: '',
+                color: '',
+            }
         };
-        this.handleChange1 = this.handleChange1.bind(this);
-        this.handleChange2 = this.handleChange2.bind(this);
-        this.handleChange3 = this.handleChange3.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
-    handleChange1(event){
-        this.setState({nameP: event.target.value});
+    handleChange = (index) => (event) => {
+        this.setState({searchElems: {...this.state.searchElems, [index]: event.target.value}});
     }
-    handleChange2(event){
-        this.setState({typeP: event.target.value});
-    }
-    handleChange3(event){
-        this.setState({colorP: event.target.value});
-    }
-    handleSubmit(event){
-        event.preventDefault();
-        if (this.state.nameP !== ''){this.setState({name: "name=?" + this.state.nameP});}
-        if (this.state.typeP !== ''){this.setState({type: "type=?" +  this.state.typeP});}
-        if (this.state.colorP !== ''){this.setState({color: "color=?" + this.state.colorP});}
-        this.setState({searchFor: this.state.name + this.state.type + this.state.color});
-        console.log(this.state.searchFor)
+
+    handleSubmit = (event) => {
+        event.preventDefault()
+        this.setState({searchFor: Object.keys(this.state.searchElems).reduce(
+            (accum, elem) => this.state.searchElems[elem] ? [...accum, `${ elem }=${ this.state.searchElems[elem] }`] : accum, []).join('&')
+        })
     };
     render(){
+        console.log(this.state.searchFor)
         return(
             <div className="form">
                 <form onSubmit={this.handleSubmit}>
-                    <input type="text" value={this.state.nameP} placeholder="Name" onChange={this.handleChange1}/>
-                    <input type="text" value={this.state.typeP} placeholder="Type" onChange={this.handleChange2}/>
-                    <input type="text" value={this.state.colorP} placeholder="Color" onChange={this.handleChange3}/>
+                    <input type="text" value={this.state.searchElems.name} placeholder="Name" onChange={this.handleChange('name')}/>
+                    <input type="text" value={this.state.searchElems.type} placeholder="Type" onChange={this.handleChange('type')}/>
+                    <input type="text" value={this.state.searchElems.color} placeholder="Color" onChange={this.handleChange('color')}/>
                     <input type="submit"/>
                 </form>
                 <div className="resultOutput">
@@ -131,3 +120,4 @@ class Binder extends React.Component{
 }
 
 export default MainComponent
+
