@@ -27,45 +27,31 @@ class MainComponent extends React.Component{
 class Mode extends React.Component{
     constructor(props){
         super(props);
-        this.state = {mode:'',};
-        this.onClick1 = this.onClick1.bind(this);
-        this.onClick2 = this.onClick2.bind(this);
-        this.onClick3 = this.onClick3.bind(this);
+        this.state = {mode: '',
+                    };
+
     }
-    onClick1(){
-        this.setState({
-            mode: "Binder"
-        })
-    }
-    onClick2(){
-        this.setState({
-            mode: "Decks"
-        })
-    }
-    onClick3(){
-        this.setState({
-            mode: "Profile"
-        })
-    }
+    handleClick = (e) => {
+        console.log(e.target.value);
+        this.setState({mode: e.target.value});
+    };
     render(){
         const modePicker = this.state.mode;
         let render;
-
-        if (modePicker === "Binder"){
+        if (modePicker === "binder"){
             render = <Binder />;
-        } else if(modePicker === "Decks"){
-            render = <div>you're in decks</div>;
-        } else if(modePicker === "Profile"){
-            render = <div>you're in profiles</div>
-        } else {
-            render = <div>Pick a Mode</div>
-        }
-
+            } else if(modePicker === "decks"){
+                render = <div>you're in decks</div>;
+            } else if(modePicker === "profile"){
+                render = <div>you're in profiles</div>
+            } else {
+                render = <div>Pick a Mode</div>
+            }
         return (
             <div>
-                <button onClick={this.onClick1}> Binder </button>
-                <button onClick={this.onClick2}> Decks </button>
-                <button onClick={this.onClick3}> Profile </button>
+                <button onClick={this.handleClick} value="binder"> Binder </button>
+                <button onClick={this.handleClick} value="decks"> Decks </button>
+                <button onClick={this.handleClick} value="profile"> Profile </button>
                 {render}
             </div>
 
@@ -76,7 +62,7 @@ class Binder extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            searchFor: {},
+            searchFor: [],
             results: [],
             searchElems: {
                 name: '',
@@ -85,18 +71,18 @@ class Binder extends React.Component{
             }
         };
     }
-    handleChange = (index) => (event) => {
-        this.setState({searchElems: {...this.state.searchElems, [index]: event.target.value}});
-    }
+    handleChange = (index) => (e) => {
+        this.setState({searchElems: {...this.state.searchElems, [index]: e.target.value}});
+    };
 
-    handleSubmit = (event) => {
-        event.preventDefault()
+    handleSubmit = (e) => {
+        e.preventDefault();
         this.setState({searchFor: Object.keys(this.state.searchElems).reduce(
             (accum, elem) => this.state.searchElems[elem] ? [...accum, `${ elem }=${ this.state.searchElems[elem] }`] : accum, []).join('&')
         })
     };
     render(){
-        console.log(this.state.searchFor)
+        console.log(this.state.searchFor);
         return(
             <div className="form">
                 <form onSubmit={this.handleSubmit}>
