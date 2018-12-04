@@ -103,6 +103,7 @@ class Binder extends React.Component{
 }
 
 class Tables extends React.Component{
+
     constructor(props){
         super(props);
         this.state={
@@ -111,15 +112,17 @@ class Tables extends React.Component{
         }
     }
     componentDidMount(){
-        fetch('https://api.magicthegathering.io/v1/cards/')
+        fetch("https://api.magicthegathering.io/v1/cards/")
             .then(cards => cards.json())
             .then(data => {
                 this.setState({cardResults: data.cards});
-//            console.log("state", this.state.cardsImages);
             })
 
     }
     render(){
+        const search = ["https://api.magicthegathering.io/v1/cards/", this.props.searchFor];
+        let match = search.join('');
+        console.log(this.props.searchFor);
         return(
             <div>
                 <div className="search">
