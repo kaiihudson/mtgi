@@ -14,6 +14,7 @@ class MainComponent extends React.Component{
                             <p>Inventory, Binder & Builder</p>
                         </div>
                         <div className="formDiv">
+                            {/*TODO: create login form*/}
                             <Mode />
                         </div>
                     </div>
@@ -43,8 +44,10 @@ class Mode extends React.Component{
             } else if(modePicker === "decks"){
                 render = <div>you're in decks</div>;
             } else if(modePicker === "profile"){
+                //TODO: create this module class
                 render = <div>you're in profiles</div>
             } else {
+                //TODO: create this module class
                 render = <div>Pick a Mode</div>
             }
         return (
@@ -95,6 +98,7 @@ class Binder extends React.Component{
                     {this.state.results !== [] &&
                     <table>
                         <tbody>
+                        {/*TODO: create table dynamically*/}
                         {this.state.results}
                         </tbody>
                     </table>
