@@ -20,8 +20,8 @@ class Background extends React.Component {
                     {
                         this.state.cardsImages && this.state.cardsImages.map(
                             (card, index) => (
-                                <div className="gridChild" key={index}>
-                                    <img alt="background" src={card.imageUrl} />
+                                <div className="gridCell" key={index}>
+                                    <img className="gridChild" alt="background" src={card.imageUrl} />
                                 </div>
                             )
                         )

@@ -65,7 +65,7 @@ class Binder extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            searchFor: [],
+            searchFor: "",
             results: [],
             searchElems: {
                 name: '',
@@ -94,17 +94,57 @@ class Binder extends React.Component{
                     <input type="text" value={this.state.searchElems.color} placeholder="Color" onChange={this.handleChange('color')}/>
                     <input type="submit"/>
                 </form>
-                <div className="resultOutput">
-                    {this.state.results !== [] &&
-                    <table>
-                        <tbody>
-                        {/*TODO: create table dynamically*/}
-                        {this.state.results}
-                        </tbody>
-                    </table>
-                    }
+                <div key="output" className="resultOutput">
+                    {this.state.searchFor && <Tables />}
                 </div>
             </div>
+        )
+    }
+}
+
+class Tables extends React.Component{
+    constructor(props){
+        super(props);
+        this.state={
+            cardResults: [],
+
+        }
+    }
+    componentDidMount(){
+        fetch('https://api.magicthegathering.io/v1/cards/')
+            .then(cards => cards.json())
+            .then(data => {
+                this.setState({cardResults: data.cards});
+//            console.log("state", this.state.cardsImages);
+            })
+
+    }
+    render(){
+        return(
+            <div>
+                <div className="search">
+                    Search results:
+                    <table>
+                        <tbody>
+                        <tr><th>Name</th><th>Action</th></tr>
+                    {this.state.cardResults && this.state.cardResults.map(
+                        (card,index) => (
+                                    <tr><td key={index}>{card.name}</td><td><button value={card.name}>+</button></td></tr>
+                        )
+                    )}
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    My cards:
+                    <table>
+                        <tbody>
+                        <tr><th>Name</th><th colSpan={2}>Action</th></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         )
     }
 }
