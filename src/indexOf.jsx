@@ -24,16 +24,13 @@ class MainComponent extends React.Component{
         )
     }
 }
-
 class Mode extends React.Component{
     constructor(props){
         super(props);
-        this.state = {mode: '',
-                    };
-
+        this.state = {mode: ''};
     }
     handleClick = (e) => {
-        console.log(e.target.value);
+        // console.log(e.target.value);
         this.setState({mode: e.target.value});
     };
     render(){
@@ -65,111 +62,129 @@ class Binder extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            searchFor: "",
+            cardResults: [],
+            cardDetails: [],
             results: [],
             searchElems: {
                 name: '',
                 type: '',
-                color: '',
+                colorIdentity: '',
             }
         };
     }
     handleChange = (index) => (e) => {
         this.setState({searchElems: {...this.state.searchElems, [index]: e.target.value}});
     };
-
     handleSubmit = (e) => {
         e.preventDefault();
-        this.setState({searchFor: Object.keys(this.state.searchElems).reduce(
-            (accum, elem) => this.state.searchElems[elem] ? [...accum, `${ elem }=${ this.state.searchElems[elem] }`] : accum, []).join('&')
-        })
-    };
-    render(){
-        console.log(this.state.searchFor);
-        return(
-            <div className="form">
-                <form onSubmit={this.handleSubmit}>
-                    <input type="text" value={this.state.searchElems.name} placeholder="Name" onChange={this.handleChange('name')}/>
-                    <input type="text" value={this.state.searchElems.type} placeholder="Type" onChange={this.handleChange('type')}/>
-                    <input type="text" value={this.state.searchElems.color} placeholder="Color" onChange={this.handleChange('color')}/>
-                    <input type="submit"/>
-                </form>
-                <div key="output" className="resultOutput">
-                    {this.state.searchFor && <Tables />}
-                </div>
-            </div>
-        )
-    }
-}
-
-class Tables extends React.Component{
-
-    constructor(props){
-        super(props);
-        this.state={
-            cardResults: [],
-            cardDetails: [],
-        }
-    }
-    componentDidMount(){
-        fetch("https://api.magicthegathering.io/v1/cards/")
+        let searchFor = Object.keys(this.state.searchElems)
+                        .reduce(
+                            (accum, elem) =>
+                                this.state.searchElems[elem] ? [...accum, `${ elem }=${ this.state.searchElems[elem] }`] : accum, []).join('&');
+        fetch(`https://api.magicthegathering.io/v1/cards/?${searchFor}`)
             .then(cards => cards.json())
             .then(data => {
+                // console.log(data.cards);
                 this.setState({cardResults: data.cards});
             })
-
-    }
-    handleDetails(event){
-        //FIXME: details are not set on the thing bellow the list
-        console.log(event.target.value);
-        fetch("https://api.magicthegathering.io/v1/cards/?name="+event.target.value)
-            .then(cards2 => cards2.json())
-            .then(data2 => {
-                this.setState({cardDetails: data2.cards});
+    };
+    handleDetails = (e) => {
+        e.preventDefault();
+        fetch(`https://api.magicthegathering.io/v1/cards/?id=${e.target.value}`)
+            .then(cards => cards.json())
+            .then(data =>{
+                this.setState({cardDetails: data.cards})
             })
-
-    }
+    };
     render(){
-        //fixme: fix the search function
-        //const search = ["https://api.magicthegathering.io/v1/cards/", this.props.searchFor];
-        //let match = search.join('');
-        console.log(this.props.searchFor);
-        console.log(this.state.cardDetails);
+        // console.log(this.state.searchFor);
         return(
             <div>
-                <div className="search">
-                    Search results:
-                    <table>
-                        <tbody>
-                        <tr><th>Name</th><th>Mana Cost</th><th>type</th><th>Thumbnail</th><th colSpan={2}>Action</th></tr>
-                    {this.state.cardResults && this.state.cardResults.map(
-                        (card,index) => (
-                                    <tr><td key={index.name}>{card.name}</td>
-                                        <td key={index.manaCost}>{card.manaCost}</td>
-                                        <td key={index.type}>{card.type}</td>
-                                        <td key={index}>
-                                            <img className="thumbnail" src={card.imageUrl} alt="thumbnail"/>
-                                        </td>
-                                        <td><button value={card.name}>+</button></td>
-                                        <td><button value={card.name} onClick={this.handleDetails}>Details</button></td>
-                                    </tr>
-                        )
-                    )}
-                        </tbody>
-                    </table>
-                    {this.state.cardDetails && <div>Details: {this.state.cardDetails}</div>}
-                </div>
-                <div>
-                    My cards:
-                    <table>
-                        <tbody>
-                        <tr><th>Name</th><th colSpan={2}>Action</th></tr>
-                        <tr><td>Nombre</td><td>Detalles</td><td>Qutiar</td></tr>
-                        </tbody>
-                    </table>
+                <div className="form">
+                    <form onSubmit={this.handleSubmit}>
+                        <input type="text" value={this.state.searchElems.name} placeholder="Name" onChange={this.handleChange('name')}/>
+                        <input type="text" value={this.state.searchElems.type} placeholder="Type" onChange={this.handleChange('type')}/>
+                        <input type="text" value={this.state.searchElems.colorIdentity} placeholder="Color" onChange={this.handleChange('colorIdentity')}/>
+                        <input type="submit"/>
+                    </form>
+                    {this.state.cardResults &&
+                        <div key="output" className="resultOutput">
+                            <div>
+                                <div className="search">
+                                    Search results:
+                                    <table>
+                                        {this.state.cardResults && this.state.cardResults.map(
+                                                (cards,index) => (
+                                                    <tbody>
+                                                    <tr><th>Name</th><th>Mana Cost</th><th>Type</th><th>Thumbnail</th><th colSpan={2}>Action</th></tr>
+                                                    <tr><td key={index.name}>{cards.name}</td>
+                                                        <td key={index.manaCost}>{cards.manaCost}</td>
+                                                        <td key={index.type}>{cards.type}</td>
+                                                        <td key={index}>
+                                                            <img className="thumbnail" src={cards.imageUrl} alt="thumbnail"/>
+                                                        </td>
+                                                        <td><button value={cards.id}>+</button></td>
+                                                        <td><button value={cards.id} onClick={this.handleDetails}>Details</button></td>
+                                                    </tr>
+                                                    </tbody>
+                                                )
+                                            )
+                                        }
+                                    </table>
+                                </div>
+                                <div className="detail">
+                                    <table>
+                                        { this.state.cardDetails && this.state.cardDetails.map(
+                                            (card,index) =>(
+                                                <tbody>
+                                                <tr key={index.image}>
+                                                    <td rowSpan={6}>
+                                                        <img className="semi" src={card.imageUrl} alt="image"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td> </td>
+                                                    <td>NAME</td>
+                                                    <td key={index.name}>{card.name}</td>
+                                                </tr>
+                                                <tr key={index.manaCost}>
+                                                    <td> </td>
+                                                    <td>MANA COST</td>
+                                                    <td>{card.manaCost}</td></tr>
+                                                <tr key={index.cmc}>
+                                                    <td> </td>
+                                                    <td>Converted Mana Cost</td>
+                                                    <td>{card.cmc}</td>
+                                                </tr>
+                                                <tr key={index}>
+                                                    <td> </td>
+                                                    <td> Stats</td>
+                                                    <td>`{card.power}/{card.toughess}`</td>
+                                                </tr>
+                                                <tr key={index.test}>
+                                                    <td> </td>
+                                                    <td>Text</td>
+                                                    <td>{card.text}</td>
+                                                </tr>
+                                                </tbody>
+                                            )
+                                        )}
+                                    </table>
+                                </div>
+                                <div>
+                                    My cards:
+                                    <table>
+                                        <tbody>
+                                            <tr><th>Name</th><th colSpan={2}>Action</th></tr>
+                                            <tr><td>Nombre</td><td>Detalles</td><td>Qutiar</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
-
         )
     }
 }

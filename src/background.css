@@ -1,6 +1,6 @@
 html{
     background-color: black;
-    overflow: hidden;
+    overflow: scroll;
     text-align: center;
 }
 .mainContainer{
@@ -22,11 +22,11 @@ html{
     position: absolute;
     top: 0;
     width: 100%;
-    height: 100vh;
+    height: 200vh;
 }
 .masterContainer{
     position: absolute;
-    top: 25%;
+    top: 10%;
     left: 20%;
     width: 60%;
     height: auto;
