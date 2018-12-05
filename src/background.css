@@ -1,5 +1,7 @@
 html{
     background-color: black;
+    overflow: hidden;
+    text-align: center;
 }
 .mainContainer{
     background-color: black;
@@ -11,7 +13,7 @@ html{
     overflow: hidden;
 }
 .gridChild{
-    max-width: 17vh;
+    max-width: 15vh;
 }
 .bodyDiv{
     box-shadow: inset 0 0 0 1000px rgba(50,50,50,0.6);
@@ -35,4 +37,7 @@ html{
 .search{
     overflow: auto;
     max-height: 250px;
+}
+.thumbnail{
+    max-height: 100px;
 }

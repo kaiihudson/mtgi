@@ -6,7 +6,7 @@ class Background extends React.Component {
         this.state = {cardsImages: []}
     }
     componentDidMount(){
-        fetch('https://api.magicthegathering.io/v1/cards/?type=basic land&set=BFZ')
+        fetch('https://api.magicthegathering.io/v1/cards/?type=basic land&set=ZEN,BFZ')
             .then(cards => cards.json())
             .then(data => {
                 this.setState({cardsImages: data.cards});
