@@ -171,15 +171,6 @@ class Binder extends React.Component{
                                         )}
                                     </table>
                                 </div>
-                                <div>
-                                    My cards:
-                                    <table>
-                                        <tbody>
-                                            <tr><th>Name</th><th colSpan={2}>Action</th></tr>
-                                            <tr><td>Nombre</td><td>Detalles</td><td>Qutiar</td></tr>
-                                        </tbody>
-                                    </table>
-                                </div>
                             </div>
                         </div>
                     }
