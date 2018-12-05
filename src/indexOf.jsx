@@ -35,24 +35,28 @@ class Mode extends React.Component{
     };
     render(){
         const modePicker = this.state.mode;
-        let render;
-        if (modePicker === "binder"){
-            render = <Binder />;
+        let mode;
+        if (modePicker === "binder") {
+            mode = <Binder/>;
+        } else if(modePicker === "inventory"){
             //TODO: create this module class
+            mode = <div>you're in inventory</div>
         } else if(modePicker === "decks"){
-                render = <div>you're in decks</div>;
+            //TODO: create this module class
+            mode = <div>you're in decks</div>;
         } else if(modePicker === "profile"){
-                //TODO: create this module class
-                render = <div>you're in profiles</div>
+            //TODO: create this module class
+            mode = <div>you're in profiles</div>
         } else {
-                render = <div>Pick a Mode</div>
+            mode = <div>Pick a Mode</div>
         }
         return (
             <div>
                 <button onClick={this.handleClick} value="binder"> Binder </button>
+                <button onClick={this.handleClick} value="inventory"> Inventory</button>
                 <button onClick={this.handleClick} value="decks"> Decks </button>
                 <button onClick={this.handleClick} value="profile"> Profile </button>
-                {render}
+                {mode}
             </div>
 
             )
@@ -68,7 +72,7 @@ class Binder extends React.Component{
             searchElems: {
                 name: '',
                 type: '',
-                colorIdentity: '',
+                color: '',
             }
         };
     }
@@ -116,16 +120,23 @@ class Binder extends React.Component{
                                         {this.state.cardResults && this.state.cardResults.map(
                                                 (cards,index) => (
                                                     <tbody>
-                                                    <tr><th>Name</th><th>Mana Cost</th><th>Type</th><th>Thumbnail</th><th colSpan={2}>Action</th></tr>
-                                                    <tr><td key={index.name}>{cards.name}</td>
-                                                        <td key={index.manaCost}>{cards.manaCost}</td>
-                                                        <td key={index.type}>{cards.type}</td>
-                                                        <td key={index}>
-                                                            <img className="thumbnail" src={cards.imageUrl} alt="thumbnail"/>
-                                                        </td>
-                                                        <td><button value={cards.id}>+</button></td>
-                                                        <td><button value={cards.id} onClick={this.handleDetails}>Details</button></td>
-                                                    </tr>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th>Mana Cost</th>
+                                                            <th>Type</th>
+                                                            <th>Thumbnail</th>
+                                                            <th colSpan={2}>Action</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td key={index.name}>{cards.name}</td>
+                                                            <td key={index.manaCost}>{cards.manaCost}</td>
+                                                            <td key={index.type}>{cards.type}</td>
+                                                            <td key={index}>
+                                                                <img className="thumbnail" src={cards.imageUrl} alt="thumbnail"/>
+                                                            </td>
+                                                            <td><button value={cards.id}>+</button></td>
+                                                            <td><button value={cards.id} onClick={this.handleDetails}>Details</button></td>
+                                                        </tr>
                                                     </tbody>
                                                 )
                                             )
@@ -138,14 +149,19 @@ class Binder extends React.Component{
                                             (card,index) =>(
                                                 <tbody>
                                                 <tr key={index.image}>
-                                                    <td rowSpan={6}>
-                                                        <img className="semi" src={card.imageUrl} alt="image"/>
+                                                    <td rowSpan={7}>
+                                                        <img className="semi" src={card.imageUrl} alt="MidImage"/>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td> </td>
                                                     <td>NAME</td>
                                                     <td key={index.name}>{card.name}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td> </td>
+                                                    <td>TYPE</td>
+                                                    <td key={index.type}>{card.type}</td>
                                                 </tr>
                                                 <tr key={index.manaCost}>
                                                     <td> </td>
@@ -159,7 +175,7 @@ class Binder extends React.Component{
                                                 <tr key={index}>
                                                     <td> </td>
                                                     <td> Stats</td>
-                                                    <td>`{card.power}/{card.toughess}`</td>
+                                                    <td>{card.power}/{card.toughness}</td>
                                                 </tr>
                                                 <tr key={index.test}>
                                                     <td> </td>
