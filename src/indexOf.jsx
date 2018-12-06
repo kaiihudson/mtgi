@@ -13,7 +13,8 @@ class MainComponent extends React.Component{
                             <img className="logo" alt="logo" src={"TheLogo.png"}/>
                             <p>Inventory, Binder & Builder</p>
                         </div>
-                        <div className="formDiv">
+                        <div className="mainDiv">
+
                             {/*TODO: create login form*/}
                             <Mode />
                         </div>
@@ -27,42 +28,81 @@ class MainComponent extends React.Component{
 class Mode extends React.Component{
     constructor(props){
         super(props);
-        this.state = {mode: ''};
+        this.state = {
+            mode: '',
+            isLoggedIn: 0,
+            login:{
+                username: '',
+                password: '',
+            }
+        };
     }
     handleClick = (e) => {
         // console.log(e.target.value);
         this.setState({mode: e.target.value});
     };
+    handleChange = (index) => (e) => {
+        this.setState({login: {...this.state.login, [index]: e.target.value}})
+    };
+    handleSubmit = (e) =>{
+        e.preventDefault();
+        this.setState({isLoggedIn: 2})
+    };
+    handleLogin = (e) => {
+        e.preventDefault();
+        this.setState({isLoggedIn: 1})
+    };
+    handleLogout = (e) =>{
+        e.preventDefault();
+        this.setState({isLoggedIn: 0})
+    };
     render(){
         const modePicker = this.state.mode;
+        const checkLogin = this.state.isLoggedIn;
         let mode;
-        if (modePicker === "binder") {
-            mode = <Binder/>;
-        } else if(modePicker === "inventory"){
-            //TODO: create this module class
-            mode = <div>you're in inventory</div>
-        } else if(modePicker === "decks"){
-            //TODO: create this module class
-            mode = <div>you're in decks</div>;
-        } else if(modePicker === "profile"){
-            //TODO: create this module class
-            mode = <div>you're in profiles</div>
-        } else {
-            mode = <div>Pick a Mode</div>
-        }
+            if (modePicker === "seeker") {
+                mode = <Seeker />;
+            } else if(modePicker === "binder"){
+                //TODO: create this module class
+                mode = <div>you're in binder</div>
+            } else if(modePicker === "decks"){
+                    //TODO: create this module class
+                mode = <div>you're in decks</div>;
+            } else if(modePicker === "profile"){
+                //TODO: create this module class
+                mode = <div>you're in profiles</div>
+            } else {
+                mode = <div>Pick a Mode</div>
+            }
+        let logIn;
+            if(checkLogin === 2){
+                logIn = (<div> Welcome, {this.state.login.username} <button onClick={this.handleLogout}>Log Out</button></div>)
+            } else if (checkLogin === 1){
+                logIn = (<div>
+                            <form onSubmit={this.handleSubmit}>
+                                <input type="text" placeholder="Username" value={this.state.login.username} onChange={this.handleChange('username')}/>
+                                <input type="password" placeholder="Password" value={this.state.login.password} onChange={this.handleChange('password')}/>
+                                <input type="submit"/>
+                            </form>
+                        </div>)
+            } else if (checkLogin === 0){
+                logIn = (<div><button onClick={this.handleLogin}>Log In</button></div>)
+            }
+        console.log(checkLogin);
         return (
             <div>
-                <button onClick={this.handleClick} value="binder"> Binder </button>
-                <button onClick={this.handleClick} value="inventory"> Inventory</button>
-                <button onClick={this.handleClick} value="decks"> Decks </button>
-                <button onClick={this.handleClick} value="profile"> Profile </button>
+                <div>{logIn}</div>
+                <button onClick={this.handleClick} value="seeker"> Search </button>
+                {this.state.isLoggedIn === 2 && <button onClick={this.handleClick} value="binder"> Binder </button>}
+                {this.state.isLoggedIn === 2 && <button onClick={this.handleClick} value="decks"> Decks </button>}
+                {this.state.isLoggedIn === 2 && <button onClick={this.handleClick} value="profile"> Profile </button>}
                 {mode}
             </div>
 
             )
     }
 }
-class Binder extends React.Component{
+class Seeker extends React.Component{
     constructor(props){
         super(props);
         this.state={
