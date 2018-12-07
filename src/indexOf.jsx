@@ -62,31 +62,40 @@ class Mode extends React.Component{
         let mode;
             if (modePicker === "seeker") {
                 mode = <Seeker />;
-            } else if(modePicker === "binder"){
+            } else if (modePicker === "binder"){
                 //TODO: create this module class
                 mode = <div>you're in binder</div>
-            } else if(modePicker === "decks"){
-                    //TODO: create this module class
-                mode = <div>you're in decks</div>;
-            } else if(modePicker === "profile"){
+            } else if (modePicker === "decksPrivate"){
                 //TODO: create this module class
-                mode = <div>you're in profiles</div>
+                mode = <div>Private Decks go here</div>;
+            } else if (modePicker === "decksPublic"){
+                //TODO: create this module class
+                mode = <div>Public Decks go here</div>;
+            } else if (modePicker === "profile"){
+                //TODO: create this module class
+                mode = <div>Profile goes here</div>
+            } else if (modePicker === "register"){
+                mode = <div>Register form goes here</div>
             } else {
                 mode = <div>Pick a Mode</div>
             }
         let logIn;
             if(checkLogin === 2){
-                logIn = (<div> Welcome, {this.state.login.username} <button onClick={this.handleLogout}>Log Out</button></div>)
+                logIn = (<div className="userDeck"> Welcome, {this.state.login.username} <button onClick={this.handleLogout}>Log Out</button></div>)
             } else if (checkLogin === 1){
-                logIn = (<div>
-                            <form onSubmit={this.handleSubmit}>
-                                <input type="text" placeholder="Username" value={this.state.login.username} onChange={this.handleChange('username')}/>
-                                <input type="password" placeholder="Password" value={this.state.login.password} onChange={this.handleChange('password')}/>
-                                <input type="submit"/>
-                            </form>
-                        </div>)
+                logIn = (   <div className="userDeck">
+                                <form onSubmit={this.handleSubmit}>
+                                    <input type="text" placeholder="Username" value={this.state.login.username} onChange={this.handleChange('username')}/>
+                                    <input type="password" placeholder="Password" value={this.state.login.password} onChange={this.handleChange('password')}/>
+                                    <input type="submit"/>
+                                </form>
+                            </div>
+                )
             } else if (checkLogin === 0){
-                logIn = (<div><button onClick={this.handleLogin}>Log In</button></div>)
+                logIn = (   <div className="userDeck">
+                                <button onClick={this.handleLogin}>Log In</button>
+                            </div>
+                )
             }
         console.log(checkLogin);
         return (
@@ -94,8 +103,10 @@ class Mode extends React.Component{
                 <div>{logIn}</div>
                 <button onClick={this.handleClick} value="seeker"> Search </button>
                 {this.state.isLoggedIn === 2 && <button onClick={this.handleClick} value="binder"> Binder </button>}
-                {this.state.isLoggedIn === 2 && <button onClick={this.handleClick} value="decks"> Decks </button>}
+                <button onClick={this.handleClick} value="decksPublic"> Top Decks </button>
+                {this.state.isLoggedIn === 2 && <button onClick={this.handleClick} value="decksPrivate"> My Decks </button>}
                 {this.state.isLoggedIn === 2 && <button onClick={this.handleClick} value="profile"> Profile </button>}
+                {this.state.isLoggedIn === 0 && <button onClick={this.handleClick} value="register"> Register </button>}
                 {mode}
             </div>
 

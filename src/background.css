@@ -35,6 +35,9 @@ html{
     background-color: sandybrown;
     color: black;
 }
+.userDeck{
+    padding-bottom: 10px;
+}
 .search{
     overflow: auto;
     max-height: 300px;
