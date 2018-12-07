@@ -61,7 +61,7 @@ class Mode extends React.Component{
         const checkLogin = this.state.isLoggedIn;
         let mode;
             if (modePicker === "seeker") {
-                mode = <Seeker />;
+                mode = <Seeker login={this.state.isLoggedIn}/>;
             } else if (modePicker === "binder"){
                 //TODO: create this module class
                 mode = <div>you're in binder</div>
@@ -70,7 +70,7 @@ class Mode extends React.Component{
                 mode = <div>Private Decks go here</div>;
             } else if (modePicker === "decksPublic"){
                 //TODO: create this module class
-                mode = <div>Public Decks go here</div>;
+                mode = <PublicDecks login={this.state.isLoggedIn}/>;
             } else if (modePicker === "profile"){
                 //TODO: create this module class
                 mode = <div>Profile goes here</div>
@@ -133,14 +133,14 @@ class Register extends React.Component{
                         //TODO: Add a captcha?
                         this.setState({userdata: {...this.state.userdata, [index]: e.target.value}})
                     };
-                    handleSubmit = (e) => {
+                    handleRegister = (e) => {
                         e.preventDefault();
                         console.log("you've successfully pressed a button")
                     };
                     render(){
                         return(
                             <div className="registerForm">
-                                <form onSubmit={this.handleSubmit}>
+                                <form onSubmit={this.handleRegister}>
                                     <table>
                                         <tbody>
                                             <tr>
@@ -169,7 +169,69 @@ class Register extends React.Component{
                         )
                     }
 }
+class PublicDecks extends React.Component{
+    constructor(props){
+        super(props);
+        this.state={
 
+        }
+    }
+    render(){
+        return(
+            <div>
+                {this.props.login === 2 &&
+                    <div>
+                        <table>
+                            <caption>Your Public decks:
+                                {/*TODO: create decks per user with privacy settings*/}
+                            </caption>
+                            <tbody>
+                                <tr>
+                                    <th>Identity</th>
+                                    <th>Popularity</th>
+                                    <th>Deck Name</th>
+                                    <th>A.M.C.</th>
+                                    <th>User</th>
+                                    <th>Public?</th>
+                                </tr>
+                                <tr>
+                                    <td>(B)+(W)</td>
+                                    <td> +1 </td>
+                                    <td>The great church of Orzhovia</td>
+                                    <td>3</td>
+                                    <td>KaiiHudson</td>
+                                    <td><input type="checkbox"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                <div>
+                    <table>
+                        <caption> Top Decks (asIs)</caption>
+                        {/*FIXME: work with a real database of cards tied to an user*/}
+                        <tbody>
+                            <tr>
+                                <th>Identity</th>
+                                <th>Popularity</th>
+                                <th>Deck Name</th>
+                                <th>A.M.C.</th>
+                                <th>User</th>
+                            </tr>
+                            <tr>
+                                <td>(B)+(W)</td>
+                                <td> +1 </td>
+                                <td>The great church of Orzhovia</td>
+                                <td>3</td>
+                                <td>KaiiHudson</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        )
+    }
+}
 class Seeker extends React.Component{
     constructor(props){
         super(props);
@@ -242,7 +304,7 @@ class Seeker extends React.Component{
                                                             <td key={index}>
                                                                 <img className="thumbnail" src={cards.imageUrl} alt="thumbnail"/>
                                                             </td>
-                                                            <td><button value={cards.id}>+</button></td>
+                                                            {this.props.login === 2 && <td><button value={cards.id}>+</button></td>}
                                                             <td><button value={cards.id} onClick={this.handleDetails}>Details</button></td>
                                                         </tr>
                                                     </tbody>
