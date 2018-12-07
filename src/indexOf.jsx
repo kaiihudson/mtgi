@@ -75,7 +75,7 @@ class Mode extends React.Component{
                 //TODO: create this module class
                 mode = <div>Profile goes here</div>
             } else if (modePicker === "register"){
-                mode = <div>Register form goes here</div>
+                mode = <Register />
             } else {
                 mode = <div>Pick a Mode</div>
             }
@@ -113,6 +113,63 @@ class Mode extends React.Component{
             )
     }
 }
+
+class Register extends React.Component{
+                    constructor(props){
+                        super(props);
+                        this.state = {
+                            userdata:{
+                                username: '',
+                                email: '',
+                                password: '',
+                                confirm: '',
+                            }
+                        }
+                    }
+                    handleChange = (index) => (e) => {
+                        //TODO: check if username is already in use
+                        //TODO: check if the email is already in use
+                        //TODO: check if passwords are the same
+                        //TODO: Add a captcha?
+                        this.setState({userdata: {...this.state.userdata, [index]: e.target.value}})
+                    };
+                    handleSubmit = (e) => {
+                        e.preventDefault();
+                        console.log("you've successfully pressed a button")
+                    };
+                    render(){
+                        return(
+                            <div className="registerForm">
+                                <form onSubmit={this.handleSubmit}>
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td>Mail</td>
+                                                <td><input type="text" placeholder="E-Mail" onChange={this.handleChange} value={this.state.userdata.email}/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Username</td>
+                                                <td><input type="text" placeholder="Username" onChange={this.handleChange} value={this.state.userdata.username}/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Password</td>
+                                                <td><input type="password" placeholder="Password" onChange={this.handleChange} value={this.state.userdata.password}/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Confirm Password</td>
+                                                <td><input type="password" placeholder="Confirm" onChange={this.handleChange} value={this.state.userdata.confirm}/></td>
+                                            </tr>
+                                            <tr>
+                                                <td colSpan={2}><input type="submit"/></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+                        )
+                    }
+}
+
 class Seeker extends React.Component{
     constructor(props){
         super(props);

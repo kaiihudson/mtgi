@@ -42,6 +42,9 @@ html{
     overflow: auto;
     max-height: 300px;
 }
+.registerForm{
+    text-align: center;
+}
 .thumbnail{
     max-height: 100px;
 }
