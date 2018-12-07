@@ -145,19 +145,19 @@ class Register extends React.Component{
                                         <tbody>
                                             <tr>
                                                 <td>Mail</td>
-                                                <td><input type="text" placeholder="E-Mail" onChange={this.handleChange} value={this.state.userdata.email}/></td>
+                                                <td><input type="text" placeholder="E-Mail" onChange={this.handleChange('email')} value={this.state.userdata.email}/></td>
                                             </tr>
                                             <tr>
                                                 <td>Username</td>
-                                                <td><input type="text" placeholder="Username" onChange={this.handleChange} value={this.state.userdata.username}/></td>
+                                                <td><input type="text" placeholder="Username" onChange={this.handleChange('username')} value={this.state.userdata.username}/></td>
                                             </tr>
                                             <tr>
                                                 <td>Password</td>
-                                                <td><input type="password" placeholder="Password" onChange={this.handleChange} value={this.state.userdata.password}/></td>
+                                                <td><input type="password" placeholder="Password" onChange={this.handleChange('password')} value={this.state.userdata.password}/></td>
                                             </tr>
                                             <tr>
                                                 <td>Confirm Password</td>
-                                                <td><input type="password" placeholder="Confirm" onChange={this.handleChange} value={this.state.userdata.confirm}/></td>
+                                                <td><input type="password" placeholder="Confirm" onChange={this.handleChange('confirm')} value={this.state.userdata.confirm}/></td>
                                             </tr>
                                             <tr>
                                                 <td colSpan={2}><input type="submit"/></td>
