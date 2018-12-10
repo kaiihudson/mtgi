@@ -10,7 +10,8 @@ class Seeker extends React.Component{
                 name: '',
                 types: '',
                 colors: '',
-            }
+            },
+            cardsToAdd: []
         };
     }
 
@@ -30,11 +31,17 @@ class Seeker extends React.Component{
 
     handleAdd = (e) => {
         e.preventDefault();
+        let userName = this.props.login.username;
         let cardId = e.target.value;
         let cardName = e.target.name;
+        const cardArray = [];
+        cardArray.push(cardName);
+        cardArray.forEach(function (item, index, array) {
+            console.log(item, index);
+        });
         // toCheck.push(this.props.CardInfo.name);
-        console.log(`You tried to add ${cardId}, which translates to ${cardName}`);
-    }
+        console.log(`You tried to add ${cardId}, which translates to ${cardName}, and was requested by ${userName}`);
+    };
     //TODO: call user's ID so i can know who's adding a card to it's repository
     handleDetails = (e) => {
         e.preventDefault();
@@ -44,21 +51,22 @@ class Seeker extends React.Component{
     };
 
     render(){
-        let cardResults
+        let cardResults;
         if(this.props.cardInfo === {cards: []}){
-            cardResults = <tr>
-                                    <td colSpan={6}>There's no data to be shown</td>
-                                </tr>
+            cardResults =
+                <tr>
+                    <td colSpan={6}>There's no data to be shown</td>
+                </tr>
         } else {cardResults = this.props.cardInfo.map(
                     (cards,index) => (
                     <tr>
                         <td key={index.name}>{cards.name}</td>
                         <td key={index.manaCost}>{cards.manaCost}</td>
-                        <td key={index.type}>{cards.types}</td>
+                        <td key={index.id}>{cards.types}</td>
                         <td key={index}>
                             <img className="thumbnail" src={cards.imageUrl} alt="thumbnail"/>
                         </td>
-                            {this.props.login === 2 &&
+                            {this.props.logStatus === 2 &&
                                 <td>
                                     <button value={cards.id} name={cards.name} onClick={this.handleAdd}>+</button>
                                 </td>
@@ -68,7 +76,7 @@ class Seeker extends React.Component{
                         </td>
                     </tr>
 
-        ))};
+        ))}
 
         const cardDetails = this.props.cardDetails.map(
             (card,index) =>(
@@ -110,7 +118,6 @@ class Seeker extends React.Component{
                 </tbody>
             )
         );
-
         return(
             <div>
                 <div className="form">
@@ -139,11 +146,20 @@ class Seeker extends React.Component{
                                     </tbody>
                                 </table>
                             </div>
-                            {this.props.login === 2 &&
+                            {this.props.logStatus === 2 &&
+                                this.state.cardsToAdd !== [] &&
                                     <div>
                                         {/*this is where cards to be added will be displayed*/}
                                         Cards to be added to Inventory:
-
+                                        <form>
+                                            <table>
+                                                <tbody>
+                                                <tr>
+                                                    <td>HOW!?</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </form>
 
                                     </div>}
                             {/*this is where the results from the details should happen*/}

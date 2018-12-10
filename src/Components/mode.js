@@ -39,7 +39,7 @@ class Mode extends React.Component{
         const checkLogin = this.state.isLoggedIn;
         let mode;
         if (modePicker === "seeker") {
-            mode = <Seeker login={this.state.isLoggedIn}/>;
+            mode = <Seeker logStatus={this.state.isLoggedIn} login={this.state.login}/>;
         } else if (modePicker === "binder"){
             //TODO: create this module class
             mode = <div>you're in binder</div>
