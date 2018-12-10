@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchCardsImages } from "./Actions/postActions";
+import { fetchCardsImages } from "./Actions/BackgroundActions";
 
 class Background extends React.Component {
     componentDidMount(){

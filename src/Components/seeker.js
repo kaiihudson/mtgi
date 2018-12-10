@@ -8,8 +8,8 @@ class Seeker extends React.Component{
         this.state={
             searchElems: {
                 name: '',
-                type: '',
-                color: '',
+                types: '',
+                colors: '',
             }
         };
     }
@@ -28,36 +28,47 @@ class Seeker extends React.Component{
         this.props.fetchCards(searchFor);
     };
 
+    handleAdd = (e) => {
+        e.preventDefault();
+        let cardId = e.target.value;
+        let cardName = e.target.name;
+        // toCheck.push(this.props.CardInfo.name);
+        console.log(`You tried to add ${cardId}, which translates to ${cardName}`);
+    }
+    //TODO: call user's ID so i can know who's adding a card to it's repository
     handleDetails = (e) => {
         e.preventDefault();
         let cardId = e.target.value;
         // call action
-        this.props.fetchCardDetails(CardId);
+        this.props.fetchCardDetails(cardId);
     };
 
     render(){
-        const cardResults = this.props.cardInfo.map(
-            (cards,index) => (
-                <tbody>
-                <tr>
-                    <th>Name</th>
-                    <th>Mana Cost</th>
-                    <th>Type</th>
-                    <th>Thumbnail</th>
-                    <th colSpan={2}>Action</th>
-                </tr>
-                <tr>
-                    <td key={index.name}>{cards.name}</td>
-                    <td key={index.manaCost}>{cards.manaCost}</td>
-                    <td key={index.type}>{cards.type}</td>
-                    <td key={index}>
-                        <img className="thumbnail" src={cards.imageUrl} alt="thumbnail"/>
-                    </td>
-                    {this.props.login === 2 && <td><button value={cards.id}>+</button></td>}
-                    <td><button value={cards.id} onClick={this.handleDetails}>Details</button></td>
-                </tr>
-                </tbody>
-        ));
+        let cardResults
+        if(this.props.cardInfo === {cards: []}){
+            cardResults = <tr>
+                                    <td colSpan={6}>There's no data to be shown</td>
+                                </tr>
+        } else {cardResults = this.props.cardInfo.map(
+                    (cards,index) => (
+                    <tr>
+                        <td key={index.name}>{cards.name}</td>
+                        <td key={index.manaCost}>{cards.manaCost}</td>
+                        <td key={index.type}>{cards.types}</td>
+                        <td key={index}>
+                            <img className="thumbnail" src={cards.imageUrl} alt="thumbnail"/>
+                        </td>
+                            {this.props.login === 2 &&
+                                <td>
+                                    <button value={cards.id} name={cards.name} onClick={this.handleAdd}>+</button>
+                                </td>
+                            }
+                        <td>
+                            <button value={cards.id} onClick={this.handleDetails}>Details</button>
+                        </td>
+                    </tr>
+
+        ))};
 
         const cardDetails = this.props.cardDetails.map(
             (card,index) =>(
@@ -98,7 +109,7 @@ class Seeker extends React.Component{
                 </tr>
                 </tbody>
             )
-        )
+        );
 
         return(
             <div>
@@ -116,9 +127,25 @@ class Seeker extends React.Component{
                             <div className="search">
                                 Search results:
                                 <table>
-                                    {cardResults}
+                                    <tbody>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Mana Cost</th>
+                                            <th>Type</th>
+                                            <th>Thumbnail</th>
+                                            <th colSpan={2}>Action</th>
+                                        </tr>
+                                        {cardResults}
+                                    </tbody>
                                 </table>
                             </div>
+                            {this.props.login === 2 &&
+                                    <div>
+                                        {/*this is where cards to be added will be displayed*/}
+                                        Cards to be added to Inventory:
+
+
+                                    </div>}
                             {/*this is where the results from the details should happen*/}
                             <div className="detail">
                                 <table>
@@ -139,4 +166,4 @@ const mapStateToProps = state => ({
     cardDetails: state.cardDetails.details
 });
 
-export default connect(mapStateToProps, {fetchCards}) (Seeker)
+export default connect(mapStateToProps, {fetchCards, fetchCardDetails}) (Seeker)

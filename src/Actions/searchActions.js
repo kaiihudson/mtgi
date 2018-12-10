@@ -1,6 +1,6 @@
-import {FETCH_CARD_DETAILS, FETCH_CARDS} from "./types";
+import { FETCH_CARD_DETAILS, FETCH_CARDS } from "./types";
 
-export const fetchCards = (searchFor) => dispatch => {
+export const fetchCards = ( searchFor ) => dispatch => {
     fetch(`https://api.magicthegathering.io/v1/cards/?${searchFor}`)
         .then(cards => cards.json())
         .then(cards => dispatch({
@@ -9,7 +9,7 @@ export const fetchCards = (searchFor) => dispatch => {
         }))
 };
 
-export const fetchCardDetails = (cardId) => dispatch => {
+export const fetchCardDetails = ( cardId ) => dispatch => {
     fetch(`https://api.magicthegathering.io/v1/cards/?id=${cardId}`)
         .then(cards => cards.json())
         .then(card => dispatch ({
@@ -17,3 +17,9 @@ export const fetchCardDetails = (cardId) => dispatch => {
             payload: card.cards
         }))
 };
+
+//export cosnt AddCard = (UserId, CardId) => dispatch => {
+    // database plug
+    // fetch()
+    //
+//}

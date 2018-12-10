@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import postReducer from './postReducer';
+import postReducer from './backgroundReducer';
 import searchReducer from "./searchReducer";
 
 export default combineReducers({
