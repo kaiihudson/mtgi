@@ -1,33 +1,29 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { fetchCardsImages } from "./Actions/postActions";
 
 class Background extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {cardsImages: []}
-    }
     componentDidMount(){
-        fetch('https://api.magicthegathering.io/v1/cards/?type=basic land&set=ZEN,BFZ')
-            .then(cards => cards.json())
-            .then(data => {
-                this.setState({cardsImages: data.cards});
-//            console.log("state", this.state.cardsImages);
-            })
+        this.props.fetchCardsImages();
     }
 
     render(){
+        const cardsImages = this.props.cardImages.map(
+            (card, index) => (
+                <div className="gridCell" key={index}>
+                    <img className="gridChild" alt="background" src={card.imageUrl} />
+                </div>
+        ))
         return(
                 <div className="container1">
-                    {
-                        this.state.cardsImages && this.state.cardsImages.map(
-                            (card, index) => (
-                                <div className="gridCell" key={index}>
-                                    <img className="gridChild" alt="background" src={card.imageUrl} />
-                                </div>
-                            )
-                        )
-                    }
+                    {cardsImages}
                 </div>
         )
     }
 }
-export default Background
+
+const mapStateToProps = state => ({
+    cardImages: state.cardImages.images
+});
+
+export default connect(mapStateToProps, { fetchCardsImages })(Background)

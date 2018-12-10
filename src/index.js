@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MainComponent from './indexOf.jsx';
+import MainComponent from './Components/mainComponent';
+import './background.css'
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<MainComponent />,document.getElementById('root'));
