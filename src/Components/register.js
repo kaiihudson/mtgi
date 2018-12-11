@@ -22,11 +22,10 @@ class Register extends React.Component{
     handleRegister = (e) => {
         e.preventDefault();
         console.log("you've successfully pressed a button")
-
+        //TODO: if conditional that checks for the changes in ddbb and triggers an action
         //an action should be here to create a new user
     };
     render(){
-        //find a way to check in ddbb is mail is already in use => should be a boolean?
         const mailIsTaken = '';
         let mailProps;
         if (mailIsTaken) {
@@ -67,10 +66,19 @@ class Register extends React.Component{
                         </tr>
                         <tr>
                             <td>Confirm Password</td>
+                            {/*TODO: check if it's the same as password*/}
                             <td><input type="password" placeholder="Confirm" onChange={this.handleChange('confirm')} value={this.state.userdata.confirm}/></td>
+                            {/*TODO: add some sort of notification that the password is doin fine (it's the same and has basic security stuff)
+                            <td></td>
+                            */}
                         </tr>
                         <tr>
-                            <td colSpan={2}>{this.state.userdata.password !== '' && this.state.userdata.password === this.state.userdata.confirm  && <input type="submit"/>}</td>
+                            <td colSpan={2}>
+                                {this.state.userdata.password !== '' &&
+                                this.state.userdata.password === this.state.userdata.confirm  &&
+                                    <input type="submit"/>
+                                }
+                            </td>
                         </tr>
                         </tbody>
                     </table>

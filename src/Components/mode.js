@@ -23,6 +23,9 @@ class Mode extends React.Component{
         this.setState({login: {...this.state.login, [index]: e.target.value}})
     };
     handleSubmit = (e) =>{
+        //TODO: check if username is on the ddbb
+        //TODO: encrypt password to send it
+        //TODO: check if username & password do match
         e.preventDefault();
         this.setState({isLoggedIn: 2})
     };
