@@ -34,11 +34,6 @@ class Seeker extends React.Component{
         let userName = this.props.login.username;
         let cardId = e.target.value;
         let cardName = e.target.name;
-        const cardArray = [];
-        cardArray.push(cardName);
-        cardArray.forEach(function (item, index, array) {
-            console.log(item, index);
-        });
         // toCheck.push(this.props.CardInfo.name);
         console.log(`You tried to add ${cardId}, which translates to ${cardName}, and was requested by ${userName}`);
     };
@@ -52,7 +47,7 @@ class Seeker extends React.Component{
 
     render(){
         let cardResults;
-        if(this.props.cardInfo === {cards: []}){
+        if(this.props.cardInfo === "{cards: []}"){
             cardResults =
                 <tr>
                     <td colSpan={6}>There's no data to be shown</td>
