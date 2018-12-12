@@ -1,4 +1,5 @@
 import React from "react";
+import {Button} from "@blueprintjs/core"
 
 class Register extends React.Component{
     constructor(props){
@@ -29,21 +30,59 @@ class Register extends React.Component{
         const mailIsTaken = '';
         let mailProps;
         if (mailIsTaken) {
-            //this uses react-bootstrap <- should i add?
-            mailProps = <button bsstyle="danger" disabled> Mail is taken</button>
+            mailProps = <Button
+                            icon="error"
+                            intent="danger"
+                            text="Mail is Taken"
+                            disabled
+                        />
         } else{
-            //this uses react-bootstrap <- should i add?
-            mailProps = <button bsstyle="success" disabled> Mail is available</button>
+            mailProps = <Button
+                            icon="user"
+                            intent="success"
+                            text=" Mail is Available"
+                            disabled
+                        />
         }
         //find a way to check in ddbb if username is available => should be a boolean?
         const isAvailable = '';
         let userProps;
         if (isAvailable){
             //this uses react-bootstrap <- should i add?
-            userProps = <button bsstyle="danger" disabled> Username is taken</button>
+            userProps = <Button
+                icon="small-cross"
+                intent="danger"
+                text="Username is Taken"
+                disabled
+            />
         } else{
             //this uses react-bootstrap <- should i add?
-            userProps = <button bsstyle="success" disabled> Username is available</button>
+            userProps = <Button
+                icon="user"
+                intent="success"
+                text=" Username is Available"
+                disabled
+            />
+        }
+        let magicconfirm = this.state.userdata.confirm,
+            magicpass = this.state.userdata.password;
+            let doTheyMatch = '';
+        function matchStatus(magicconfirm, magicpass) {
+            if (magicconfirm !== '' && magicconfirm === magicpass) {
+                doTheyMatch = <Button
+                    icon="confirm"
+                    intent="success"
+                    text="OK"
+                    disabled
+                />
+            } else if (magicconfirm !== '') {
+                doTheyMatch = <Button
+                    icon="small-cross"
+                    intent="danger"
+                    text="Passwords do not match"
+                    disabled
+                />
+            }
         }
         return(
             <div className="registerForm">
@@ -66,11 +105,8 @@ class Register extends React.Component{
                         </tr>
                         <tr>
                             <td>Confirm Password</td>
-                            {/*TODO: check if it's the same as password*/}
                             <td><input type="password" placeholder="Confirm" onChange={this.handleChange('confirm')} value={this.state.userdata.confirm}/></td>
-                            {/*TODO: add some sort of notification that the password is doin fine (it's the same and has basic security stuff)
-                            <td></td>
-                            */}
+                            <td>{matchStatus(magicconfirm, magicpass)}{doTheyMatch}</td>
                         </tr>
                         <tr>
                             <td colSpan={2}>

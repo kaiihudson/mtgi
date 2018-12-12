@@ -2,6 +2,9 @@ import React from "react";
 import { connect } from 'react-redux';
 import { fetchCards, fetchCardDetails } from "../Actions/searchActions";
 
+import Details from './details'
+import {HTMLTable} from "@blueprintjs/core";
+
 class Seeker extends React.Component{
     constructor(props){
         super(props);
@@ -72,47 +75,6 @@ class Seeker extends React.Component{
                     </tr>
 
         ))}
-
-        const cardDetails = this.props.cardDetails.map(
-            (card,index) =>(
-                <tbody>
-                <tr key={index.image}>
-                    <td rowSpan={7}>
-                        <img className="semi" src={card.imageUrl} alt="MidImage"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td> </td>
-                    <td>NAME</td>
-                    <td key={index.name}>{card.name}</td>
-                </tr>
-                <tr>
-                    <td> </td>
-                    <td>TYPE</td>
-                    <td key={index.type}>{card.type}</td>
-                </tr>
-                <tr key={index.manaCost}>
-                    <td> </td>
-                    <td>MANA COST</td>
-                    <td>{card.manaCost}</td></tr>
-                <tr key={index.cmc}>
-                    <td> </td>
-                    <td>Converted Mana Cost</td>
-                    <td>{card.cmc}</td>
-                </tr>
-                <tr key={index}>
-                    <td> </td>
-                    <td> Stats</td>
-                    <td>{card.power}/{card.toughness}</td>
-                </tr>
-                <tr key={index.test}>
-                    <td> </td>
-                    <td>Text</td>
-                    <td>{card.text}</td>
-                </tr>
-                </tbody>
-            )
-        );
         return(
             <div>
                 <div className="form">
@@ -128,7 +90,7 @@ class Seeker extends React.Component{
                             {/*this is where the results from the search should happen*/}
                             <div className="search">
                                 Search results:
-                                <table>
+                                <HTMLTable striped bordered>
                                     <tbody>
                                         <tr>
                                             <th>Name</th>
@@ -139,7 +101,7 @@ class Seeker extends React.Component{
                                         </tr>
                                         {cardResults}
                                     </tbody>
-                                </table>
+                                </HTMLTable>
                             </div>
                             {this.props.logStatus === 2 &&
                                 this.state.cardsToAdd !== [] &&
@@ -158,10 +120,8 @@ class Seeker extends React.Component{
 
                                     </div>}
                             {/*this is where the results from the details should happen*/}
-                            <div className="detail">
-                                <table>
-                                    {cardDetails}
-                                </table>
+                            <div className="details">
+                                    <Details />
                             </div>
                         </div>
                     </div>
