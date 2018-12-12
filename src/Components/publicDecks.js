@@ -10,7 +10,7 @@ class PublicDecks extends React.Component{
     render(){
         return(
             <div>
-                {this.props.login === 2 &&
+                {this.props.logStatus === 2 &&
                 <div>
                     <table>
                         <caption>Your Public decks:
