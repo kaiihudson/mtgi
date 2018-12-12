@@ -38,7 +38,7 @@ class Register extends React.Component{
                         />
         } else{
             mailProps = <Button
-                            icon="user"
+                            icon="small-tick"
                             intent="success"
                             text=" Mail is Available"
                             disabled
@@ -58,7 +58,7 @@ class Register extends React.Component{
         } else{
             //this uses react-bootstrap <- should i add?
             userProps = <Button
-                icon="user"
+                icon="small-tick"
                 intent="success"
                 text=" Username is Available"
                 disabled

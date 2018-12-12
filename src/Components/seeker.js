@@ -49,6 +49,15 @@ class Seeker extends React.Component{
     };
 
     render(){
+        let cost;
+        function ReplaceWith(costString) {
+            costString.replace("{W}", "icono W");
+            costString.replace("{R}", "icono R");
+            costString.replace("{B}", "icono B");
+            costString.replace("{G}", "icono G");
+            costString.replace("{U}", "icono U");
+            return cost = costString
+            }
         let cardResults;
         if(this.props.cardInfo === "{cards: []}"){
             cardResults =
@@ -59,7 +68,9 @@ class Seeker extends React.Component{
                     (cards,index) => (
                     <tr>
                         <td key={index.name}>{cards.name}</td>
-                        <td key={index.manaCost}>{cards.manaCost}</td>
+                        <td key={index.manaCost}>
+                            {ReplaceWith(`${cards.manaCost}`)}{cost}
+                        </td>
                         <td key={index.id}>{cards.types}</td>
                         <td key={index}>
                             <img className="thumbnail" src={cards.imageUrl} alt="thumbnail"/>
@@ -88,7 +99,7 @@ class Seeker extends React.Component{
                     <div key="output" className="resultOutput">
                         <div>
                             {/*this is where the results from the search should happen*/}
-                            <div className="search">
+                            <p className="search">
                                 Search results:
                                 <HTMLTable striped bordered>
                                     <tbody>
@@ -102,7 +113,7 @@ class Seeker extends React.Component{
                                         {cardResults}
                                     </tbody>
                                 </HTMLTable>
-                            </div>
+                            </p>
                             {this.props.logStatus === 2 &&
                                 this.state.cardsToAdd !== [] &&
                                     <div>
