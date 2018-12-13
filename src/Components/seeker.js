@@ -50,14 +50,11 @@ class Seeker extends React.Component{
 
     render(){
         let cost;
-        function ReplaceWith(costString) {
-            costString.replace("{W}", "icono W");
-            costString.replace("{R}", "icono R");
-            costString.replace("{B}", "icono B");
-            costString.replace("{G}", "icono G");
-            costString.replace("{U}", "icono U");
-            return cost = costString
-            }
+        function ReplaceWith(costScript){
+             return let cost = costScript.replace("{G}","iconoverde")
+                .replace("{R}","iconorojo")
+                .replace("{U}","iconoazul");
+        }
         let cardResults;
         if(this.props.cardInfo === "{cards: []}"){
             cardResults =
@@ -88,6 +85,7 @@ class Seeker extends React.Component{
         ))}
         return(
             <div>
+                {/*if (cost){console.log(cost)};*/}
                 <div className="form">
                     <form onSubmit={this.handleSubmit}>
                         <input type="text" value={this.state.searchElems.name} placeholder="Name" onChange={this.handleChange('name')}/>
