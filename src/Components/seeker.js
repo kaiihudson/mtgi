@@ -50,30 +50,46 @@ class Seeker extends React.Component{
 
     render(){
         let manaCost;
-
-        /**
-         * @return {string}
-         */
         function ReplaceWith(costString){
-            return manaCost =
-                 costString
-                     .replace(/{G}/g, "verde ")
-                     .replace(/{R\/G}/g, "verde&rojo ")
-                     .replace(/{G\/W}/g, "verde&blanco ")
-                     .replace(/{B\/G}/g, "verde&negro ")
-                     .replace(/{G\/U}/g, "verde&azul ")
-                     .replace(/{R}/g, "rojo ")
-                     .replace(/{R\/W}/g, "rojo&blanco ")
-                     .replace(/{B\/R}/g, "rojo&negro ")
-                     .replace(/{U\/R}/g, "rojo&azul ")
-                     .replace(/{W}/g, "blanco ")
-                     .replace(/{W\/B}/g, "blanco&negro ")
-                     .replace(/{W\/U}/g, "blanco&azul ")
-                     .replace(/{B}/g, "negro ")
-                     .replace(/{U\/B}/g, "negro&azul ")
-                     .replace(/{U}/g, "azul ")
-
-                ;
+            return costString
+                .replace('/[{}]/g', ' ')
+                .split(' ')
+                .map((elem) => {
+                        switch(elem){
+                            case 'G':
+                                 return manaCost = <img key='manaG' className="mana" alt='manaG' src='../resources/ico/mana-g.png'/>;
+                            case 'G/W':
+                                return manaCost = <img key='manaGW' className="mana" alt='manaGW'  src='../resources/ico/mana-gw.png'/>;
+                            case 'G/U':
+                                return manaCost = <img key='manaGU' className="mana" alt='manaGU'  src='../resources/ico/mana-gu.png'/>;
+                            case 'R':
+                                return manaCost = <img key='manaR' className="mana" alt='manaR'  src='../resources/ico/mana-r.png'/>;
+                            case 'R/G':
+                                return manaCost = <img key='manaRG' className="mana" alt='manaRG'  src='../resources/ico/mana-rg.png'/>;
+                            case 'R/W':
+                                return manaCost = <img key='manaRW' className="mana" alt='manaRW'  src='../resources/ico/mana-rw.png'/>;
+                            case 'B':
+                                return manaCost = <img key='manaB' className="mana" alt='manaB'  src='../resources/ico/mana-b.png'/>;
+                            case 'B/G':
+                                return manaCost = <img key='manaBG' className="mana" alt='manaBG'  src='../resources/ico/mana-bg.png'/>;
+                            case 'B/R':
+                                return manaCost = <img key='manaBR' className="mana" alt='manaBR'  src='../resources/ico/mana-br.png'/>;
+                            case 'W':
+                                return manaCost = <img key='manaW' className="mana"  alt='manaW'  src='../resources/ico/mana-w.png'/>;
+                            case 'W/B':
+                                return manaCost = <img key='manaWB' className="mana" alt='manaWB'  src='../resources/ico/mana-wb.png'/>;
+                            case 'W/U':
+                                return manaCost = <img key='manaWU' className="mana" alt='manaWU'  src='../resources/ico/mana-wu.png'/>;
+                            case 'U':
+                                return manaCost = <img key='manaU' className="mana" alt='manaU'  src='../resources/ico/mana-u.png'/>;
+                            case 'U/R':
+                                return manaCost = <img key='manaUR' className="mana" alt='manaUR'  src='../resources/ico/mana-ur.png'/>;
+                            case 'U/B':
+                                return manaCost = <img key='manaUB' className="mana" alt='manaUB'  src='../resources/ico/mana-ub.png'/>;
+                            default:
+                                return manaCost = null
+                        }
+                    })
         }
         let cardResults;
         if(this.props.cardInfo === "{cards: []}"){
@@ -86,7 +102,7 @@ class Seeker extends React.Component{
                     <tr>
                         <td key={index.name}>{cards.name}</td>
                         <td key={index.manaCost}>
-                            {ReplaceWith(`${cards.manaCost}`)}
+                            {ReplaceWith(`${cards.manaCost}`)}{manaCost}
                         </td>
                         <td key={index.id}>{cards.types}</td>
                         <td key={index}>
