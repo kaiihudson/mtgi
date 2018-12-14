@@ -49,11 +49,31 @@ class Seeker extends React.Component{
     };
 
     render(){
-        let cost;
-        function ReplaceWith(costScript){
-             return let cost = costScript.replace("{G}","iconoverde")
-                .replace("{R}","iconorojo")
-                .replace("{U}","iconoazul");
+        let manaCost;
+
+        /**
+         * @return {string}
+         */
+        function ReplaceWith(costString){
+            return manaCost =
+                 costString
+                     .replace(/{G}/g, "verde ")
+                     .replace(/{R\/G}/g, "verde&rojo ")
+                     .replace(/{G\/W}/g, "verde&blanco ")
+                     .replace(/{B\/G}/g, "verde&negro ")
+                     .replace(/{G\/U}/g, "verde&azul ")
+                     .replace(/{R}/g, "rojo ")
+                     .replace(/{R\/W}/g, "rojo&blanco ")
+                     .replace(/{B\/R}/g, "rojo&negro ")
+                     .replace(/{U\/R}/g, "rojo&azul ")
+                     .replace(/{W}/g, "blanco ")
+                     .replace(/{W\/B}/g, "blanco&negro ")
+                     .replace(/{W\/U}/g, "blanco&azul ")
+                     .replace(/{B}/g, "negro ")
+                     .replace(/{U\/B}/g, "negro&azul ")
+                     .replace(/{U}/g, "azul ")
+
+                ;
         }
         let cardResults;
         if(this.props.cardInfo === "{cards: []}"){
@@ -66,7 +86,7 @@ class Seeker extends React.Component{
                     <tr>
                         <td key={index.name}>{cards.name}</td>
                         <td key={index.manaCost}>
-                            {ReplaceWith(`${cards.manaCost}`)}{cost}
+                            {ReplaceWith(`${cards.manaCost}`)}
                         </td>
                         <td key={index.id}>{cards.types}</td>
                         <td key={index}>
@@ -85,7 +105,6 @@ class Seeker extends React.Component{
         ))}
         return(
             <div>
-                {/*if (cost){console.log(cost)};*/}
                 <div className="form">
                     <form onSubmit={this.handleSubmit}>
                         <input type="text" value={this.state.searchElems.name} placeholder="Name" onChange={this.handleChange('name')}/>
