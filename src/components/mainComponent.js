@@ -4,6 +4,9 @@ import Mode from  './mode'
 import { Provider } from 'react-redux';
 
 import store from '../store';
+// setup fake backend
+import { configureFakeBackend } from '../helpers/fakeBackend';
+configureFakeBackend();
 
 class MainComponent extends React.Component{
     render(){
@@ -18,7 +21,6 @@ class MainComponent extends React.Component{
                                     <p>Inventory, Binder & Builder</p>
                                 </div>
                                 <div className="mainDiv">
-
                                     <Mode />
                                 </div>
                             </div>

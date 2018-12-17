@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { userActions } from '../_actions';
+import { userActions } from '../actions/userLoginActions';
 import {Spinner} from "@blueprintjs/core";
 import {Intent as intent} from "@blueprintjs/core/lib/cjs/common/intent";
 
-class Login extends React.Component {
+class LoginPage extends React.Component {
     constructor(props) {
         super(props);
 
@@ -62,7 +62,9 @@ class Login extends React.Component {
                     </div>
                     <div className="form-group">
                         <button className="btn btn-primary">Login</button>
+                        {loggingIn &&
                         <Spinner intent={intent.PRIMARY}/>
+                        }
                         <Link to="/register" className="btn btn-link">Register</Link>
                     </div>
                 </form>

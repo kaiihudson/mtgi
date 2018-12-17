@@ -4,7 +4,7 @@ import { createLogger } from 'redux-logger';
 import rootReducer from './reducers/index'
 
 const initialState = {};
-const middleWare = [thunk];
+const middleWare = [thunk, createLogger()];
 
 const toCompose = [
     applyMiddleware(...middleWare)

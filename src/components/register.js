@@ -1,127 +1,90 @@
-import React from "react";
-import {Button} from "@blueprintjs/core"
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import {Spinner} from "@blueprintjs/core";
+import {Intent as intent} from "@blueprintjs/core/lib/cjs/common/intent";
 
-class Register extends React.Component{
-    constructor(props){
+
+import { userActions } from '../actions/userLoginActions';
+
+class RegisterPage extends React.Component {
+    constructor(props) {
         super(props);
+
         this.state = {
-            userdata:{
+            user: {
                 username: '',
-                email: '',
-                password: '',
-                confirm: '',
+                password: ''
+            },
+            submitted: false
+        };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(event) {
+        const { name, value } = event.target;
+        const { user } = this.state;
+        this.setState({
+            user: {
+                ...user,
+                [name]: value
             }
+        });
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+
+        this.setState({ submitted: true });
+        const { user } = this.state;
+        const { dispatch } = this.props;
+        if (user.firstName && user.lastName && user.username && user.password) {
+            dispatch(userActions.register(user));
         }
     }
-    handleChange = (index) => (e) => {
-        //TODO: check if username is already in use
-        //TODO: check if the email is already in use
-        //TODO: check if passwords are the same
-        //TODO: Add a captcha?
-        this.setState({userdata: {...this.state.userdata, [index]: e.target.value}})
-    };
-    handleRegister = (e) => {
-        e.preventDefault();
-        console.log("you've successfully pressed a button")
-        //TODO: if conditional that checks for the changes in ddbb and triggers an action
-        //an action should be here to create a new user
-    };
-    render(){
-        const mailIsTaken = '';
-        let mailProps;
-        if (mailIsTaken) {
-            mailProps = <Button
-                            icon="error"
-                            intent="danger"
-                            text="Mail is Taken"
-                            disabled
-                        />
-        } else{
-            mailProps = <Button
-                            icon="small-tick"
-                            intent="success"
-                            text=" Mail is Available"
-                            disabled
-                        />
-        }
-        //find a way to check in ddbb if username is available => should be a boolean?
-        const isAvailable = '';
-        let userProps;
-        if (isAvailable){
-            //this uses react-bootstrap <- should i add?
-            userProps = <Button
-                icon="small-cross"
-                intent="danger"
-                text="Username is Taken"
-                disabled
-            />
-        } else{
-            //this uses react-bootstrap <- should i add?
-            userProps = <Button
-                icon="small-tick"
-                intent="success"
-                text=" Username is Available"
-                disabled
-            />
-        }
-        let magicconfirm = this.state.userdata.confirm,
-            magicpass = this.state.userdata.password;
-            let doTheyMatch = '';
-        function matchStatus(magicconfirm, magicpass) {
-            if (magicconfirm !== '' && magicconfirm === magicpass) {
-                doTheyMatch = <Button
-                    icon="confirm"
-                    intent="success"
-                    text="OK"
-                    disabled
-                />
-            } else if (magicconfirm !== '') {
-                doTheyMatch = <Button
-                    icon="small-cross"
-                    intent="danger"
-                    text="Passwords do not match"
-                    disabled
-                />
-            }
-        }
-        return(
-            <div className="registerForm">
-                <form onSubmit={this.handleRegister}>
-                    <table>
-                        <tbody>
-                        <tr>
-                            <td>Mail</td>
-                            <td><input type="text" placeholder="E-Mail" onChange={this.handleChange('email')} value={this.state.userdata.email}/></td>
-                            {this.state.userdata.email !== '' && <td>{mailProps}</td>}
-                        </tr>
-                        <tr>
-                            <td>Username</td>
-                            <td><input type="text" placeholder="Username" onChange={this.handleChange('username')} value={this.state.userdata.username}/></td>
-                            {this.state.userdata.username !== '' && <td>{userProps}</td>}
-                        </tr>
-                        <tr>
-                            <td>Password</td>
-                            <td><input type="password" placeholder="Password" onChange={this.handleChange('password')} value={this.state.userdata.password}/></td>
-                        </tr>
-                        <tr>
-                            <td>Confirm Password</td>
-                            <td><input type="password" placeholder="Confirm" onChange={this.handleChange('confirm')} value={this.state.userdata.confirm}/></td>
-                            <td>{matchStatus(magicconfirm, magicpass)}{doTheyMatch}</td>
-                        </tr>
-                        <tr>
-                            <td colSpan={2}>
-                                {this.state.userdata.password !== '' &&
-                                this.state.userdata.password === this.state.userdata.confirm  &&
-                                    <input type="submit"/>
-                                }
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+
+    render() {
+        const { registering  } = this.props;
+        const { user, submitted } = this.state;
+        return (
+            <div className="col-md-6 col-md-offset-3">
+                <h2>Register</h2>
+                <form name="form" onSubmit={this.handleSubmit}>
+                    <div className={'form-group' + (submitted && !user.username ? ' has-error' : '')}>
+                        <label htmlFor="username">Username</label>
+                        <input type="text" className="form-control" name="username" value={user.username} onChange={this.handleChange} />
+                        {submitted && !user.username &&
+                        <div className="help-block">Username is required</div>
+                        }
+                    </div>
+                    <div className={'form-group' + (submitted && !user.password ? ' has-error' : '')}>
+                        <label htmlFor="password">Password</label>
+                        <input type="password" className="form-control" name="password" value={user.password} onChange={this.handleChange} />
+                        {submitted && !user.password &&
+                        <div className="help-block">Password is required</div>
+                        }
+                    </div>
+                    <div className="form-group">
+                        <button className="btn btn-primary">Register</button>
+                        {registering &&
+                        <Spinner intent={intent.PRIMARY}/>
+                        }
+                        <Link to="/login" className="btn btn-link">Cancel</Link>
+                    </div>
                 </form>
             </div>
-        )
+        );
     }
 }
 
-export default Register;
+function mapStateToProps(state) {
+    const { registering } = state.registration;
+    return {
+        registering
+    };
+}
+
+const connectedRegisterPage = connect(mapStateToProps)(RegisterPage);
+export { connectedRegisterPage as RegisterPage };
