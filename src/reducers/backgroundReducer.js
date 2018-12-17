@@ -1,7 +1,7 @@
-import {FETCH_CARDS_IMAGES} from "../Actions/types";
+import {FETCH_CARDS_IMAGES} from "../actions/types";
 
 const initialState = {
-    images: []}
+    images: []};
 
 
 export default function (state = initialState, action) {

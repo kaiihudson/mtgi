@@ -1,4 +1,4 @@
-import {FETCH_CARDS, FETCH_CARD_DETAILS} from "../Actions/types";
+import {FETCH_CARDS, FETCH_CARD_DETAILS} from "../actions/types";
 
 const initialState = {
     cards: [],

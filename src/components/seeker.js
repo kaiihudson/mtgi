@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { fetchCards, fetchCardDetails } from "../Actions/searchActions";
+import { fetchCards, fetchCardDetails } from "../actions/searchActions";
 
 import Details from './details'
 import {HTMLTable} from "@blueprintjs/core";
@@ -52,7 +52,7 @@ class Seeker extends React.Component{
         let manaCost;
         function ReplaceWith(costString){
             return costString
-                .replace('/[{}]/g', ' ')
+                .replace(/[{}]/g, ' ')
                 .split(' ')
                 .map((elem) => {
                         switch(elem){

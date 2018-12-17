@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MainComponent from './Components/mainComponent';
+import MainComponent from './components/mainComponent';
 import './background.css'
 import * as serviceWorker from './serviceWorker';
 
