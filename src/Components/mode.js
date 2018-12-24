@@ -7,6 +7,7 @@ import PublicDecks from './publicDecks';
 import PrivateDecks from './privateDecks';
 import Profile from './profile';
 import Register from './register';
+import LoginForm from "./loginForm";
 
 
 class Mode extends React.Component{
@@ -63,7 +64,7 @@ class Mode extends React.Component{
         console.log(checkLogin);
         return (
             <div>
-                <div>{logIn}</div>
+                <div><LoginForm/></div>
                 <Tabs id="ModeTabs" vertical renderActiveTabPanelOnly animate>
                     <Tab id="seeker" title="Search Cards" panel={<Seeker logStatus={this.state.isLoggedIn} login={this.state.login}/>} />
                     {this.state.isLoggedIn === 2 && <Tab id="binder" title="Binder" panel={<Binder/>} />}
