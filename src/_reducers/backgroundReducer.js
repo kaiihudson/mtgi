@@ -1,4 +1,4 @@
-import {FETCH_CARDS_IMAGES} from "../Actions/types";
+import {FETCH_CARDS_IMAGES} from "../_actions/types";
 
 const initialState = {
     images: []}

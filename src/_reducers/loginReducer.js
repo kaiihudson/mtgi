@@ -1,21 +1,20 @@
-import {FETCH_CARDS, FETCH_CARD_DETAILS} from "../Actions/types";
+import { LOGIN, LOGOUT} from "../_actions/types";
 
-const initialState = {
-    cards: [],
-    details: [],
+const InitialState = {
+    isLoggedIn: false
 };
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        case FETCH_CARDS:
+        case LOGIN:
             return {
                 ...state,
-                cards: action.payload
+                isLoggedIn: action.payload
             };
-        case FETCH_CARD_DETAILS:
+        case LOGOUT:
             return {
                 ...state,
-                details: action.payload
+                isLoggedIn: action.payload
             };
         default:
             return state;

@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {fetchCardDetails} from "../Actions/searchActions";
+import {fetchCardDetails} from "../_actions/searchActions";
 import {HTMLTable} from "@blueprintjs/core";
 
 class Details extends React.Component {
