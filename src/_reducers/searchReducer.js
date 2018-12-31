@@ -2,7 +2,7 @@ import {FETCH_CARDS, FETCH_CARD_DETAILS} from "../_actions/types";
 
 const initialState = {
     cards: [],
-    details: [],
+    details: null,
 };
 
 export default function (state = initialState, action) {

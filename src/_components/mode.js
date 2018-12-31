@@ -1,5 +1,6 @@
 import React from "react";
-import {Button, Popover, Tab, Tabs} from "@blueprintjs/core";
+import {connect} from "react-redux";
+import {Button, Popover, Tab, Tabs, Dialog, Spinner} from "@blueprintjs/core";
 import {Intent as intent} from "@blueprintjs/core/lib/cjs/common/intent";
 import {Position} from "@blueprintjs/core/lib/cjs/common/position";
 
@@ -19,8 +20,12 @@ class Mode extends React.Component{
         };
     }
     render(){
+        console.log(this.props.loading)
         return (
                 <div>
+                    <Dialog isOpen={this.props.loading} canEscapeKeyClose={false} canOutsideClickClose={false}>
+                        <Spinner />
+                    </Dialog>
                     <Popover
                         position={Position.TOP}
                     >
@@ -46,4 +51,9 @@ class Mode extends React.Component{
     }
 }
 
-export default Mode;
+export default connect((state) => {
+    console.log(state.mainPage.howManyLoadings)
+    return {
+        loading: state.mainPage.howManyLoadings > 0
+    }
+})(Mode)

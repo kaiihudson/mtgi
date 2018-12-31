@@ -1,7 +1,9 @@
 import { LOGIN, LOGOUT} from "../_actions/types";
+import { LOGGED_IN, LOG_ERROR, LOGGED_OUT } from '../_actions/loginActions'
 
 const InitialState = {
-    isLoggedIn: false
+    status: LOGGED_OUT
+    loginData: null
 };
 
 export default function (state = initialState, action) {
