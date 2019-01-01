@@ -1,11 +1,14 @@
 import { LOGIN, LOGOUT } from "./types";
+import { startLoading, stopLoading } from "./mainPageActions";
+
 export const loginStatus = {
-    LOGGED_IN: 'logged in',
-    LOG_ERROR: 'error',
-    LOGGED_OUT: 'logged out' 
-}
+    LOGGED_IN: 'LOGGED_IN',
+    LOG_ERROR: 'LOG_ERROR',
+    LOGGED_OUT: 'LOGGED_OUT'
+};
 
 export const logIn = ( loginData ) => dispatch => {
+    dispatch(startLoading());
     fetch('http://localhost:3001/user/login',
         {
             method: 'POST',
@@ -36,20 +39,22 @@ export const logIn = ( loginData ) => dispatch => {
                 payload
             })
         })
+        .then(()=> dispatch(stopLoading()))
 };
-
-export const logOut = ( ) => dispatch => {
+export const logOut = ( leaving ) => dispatch => {
+    dispatch(startLoading());
     fetch('http://localhost:3001/user/logout',
         {
             method: 'POST',
             headers:{
                 'content-type': 'application/json'
             },
-            body: JSON.stringify(Data)
+            body: JSON.stringify( leaving )
         })
         .then(cards => cards.json())
-        .then(loginData => dispatch({
+        .then(leaving => dispatch({
             type: LOGOUT,
-            payload: isLoggedIn
+            payload: leaving
         }))
+        .then(()=>(dispatch(stopLoading())))
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
-import {HTMLTable} from "@blueprintjs/core";
+import { HTMLTable } from "@blueprintjs/core";
 
 import { fetchCards, fetchCardDetails } from "../_actions/searchActions";
 import Details from './details';
@@ -35,7 +35,7 @@ class Seeker extends React.Component{
 
     handleAdd = (e) => {
         e.preventDefault();
-        let userName = this.props.login.username;
+        let userName = this.props.loginUser;
         let cardId = e.target.value;
         let cardName = e.target.name;
         // toCheck.push(this.props.CardInfo.name);
@@ -50,7 +50,7 @@ class Seeker extends React.Component{
 
     render(){
         let cardResults;
-        if(this.props.cardInfo === "{cards: []}"){
+        if(this.props.cardInfo === []) {
             cardResults =
                 <tr>
                     <td
@@ -86,7 +86,7 @@ class Seeker extends React.Component{
                                 alt="thumbnail"
                             />
                         </td>
-                            {this.props.logStatus === 2 &&
+                            {this.props.loggedIn === 'LOGGED_IN' &&
                                 <td>
                                     <button
                                         value={cards.id}
@@ -97,7 +97,11 @@ class Seeker extends React.Component{
                                 </td>
                             }
                         <td>
-                            <button value={cards.id} onClick={this.handleDetails}>Details</button>
+                            <button
+                                value={cards.id}
+                                onClick={this.handleDetails}>
+                                Details
+                            </button>
                         </td>
                     </tr>
 
@@ -136,18 +140,19 @@ class Seeker extends React.Component{
                                 Search results:
                                 <HTMLTable striped bordered>
                                     <tbody>
+                                        {this.props.cardInfo &&
                                         <tr>
                                             <th>Name</th>
                                             <th>Mana Cost</th>
                                             <th>Type</th>
                                             <th>Thumbnail</th>
                                             <th colSpan={2}>Action</th>
-                                        </tr>
+                                        </tr>}
                                         {cardResults}
                                     </tbody>
                                 </HTMLTable>
                             </div>
-                            {this.props.isLoggedIn === true &&
+                            {this.props.loggedIn === 'LOGGED_IN' &&
                                 this.state.cardsToAdd !== [] &&
                                     <div>
                                         {/*this is where cards to be added will be displayed*/}
@@ -164,12 +169,12 @@ class Seeker extends React.Component{
 
                                     </div>}
                             {/*this is where the results from the details should happen*/}
+                            <hr/>
                             <div className="details">
                                     <Details />
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         )

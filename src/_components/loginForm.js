@@ -1,4 +1,6 @@
 import React from 'react'
+import {connect} from "react-redux";
+import { logIn, logOut } from "../_actions/loginActions";
 
 class LoginForm extends React.Component{
     constructor(props){
@@ -15,10 +17,10 @@ class LoginForm extends React.Component{
     };
     handleSubmit = (e) => {
         e.preventDefault();
-        const toLogIn = `username: ${this.state.loginData.username}, password: ${this.state.loginData.password}`;
-        console.log(toLogIn)
+        const loginData = `username: ${this.state.loginData.username}, password: ${this.state.loginData.password}`;
+        //console.log(loginData)
         //call Action
-
+        this.props.logIn(loginData)
     };
 
     render(){
@@ -66,4 +68,9 @@ class LoginForm extends React.Component{
     }
 }
 
-export default LoginForm
+const mapStateToProps = state => ({
+    loginStatus: state.loginStatus.status,
+    loginData: state.loginData.loginData
+});
+
+export default connect(mapStateToProps, {logIn, logOut}) (LoginForm)

@@ -1,29 +1,24 @@
 import { FETCH_CARD_DETAILS, FETCH_CARDS } from "./types";
 import {startLoading, stopLoading} from './mainPageActions'
+
 export const fetchCards = ( searchFor ) => dispatch => {
-    dispatch(startLoading())
+    dispatch(startLoading());
     fetch(`https://api.magicthegathering.io/v1/cards/?${searchFor}`)
-        .then(cards => cards.json())
-        .then(cards => dispatch({
+        .then(rawCards => rawCards.json())
+        .then(fixedCards => dispatch({
             type: FETCH_CARDS,
-            payload: cards.cards
+            payload: fixedCards.cards
         }))
         .then(()=>dispatch(stopLoading()))
 };
 
 export const fetchCardDetails = ( cardId ) => dispatch => {
-    dispatch(startLoading())
+    dispatch(startLoading());
     fetch(`https://api.magicthegathering.io/v1/cards/?id=${cardId}`)
-        .then(cards => cards.json())
-        .then(card => dispatch ({
+        .then(rawCard => rawCard.json())
+        .then(fixedCard => dispatch ({
             type: FETCH_CARD_DETAILS,
-            payload: card.cards && card.cards.length > 0 ? card.cards[0] : null 
+            payload: fixedCard.cards && fixedCard.cards.length > 0 ? fixedCard.cards[0] : null
         }))
         .then(()=>dispatch(stopLoading()))
 };
-
-//export cosnt AddCard = (UserId, CardId) => dispatch => {
-    // database plug
-    // fetch()
-    //
-//}
