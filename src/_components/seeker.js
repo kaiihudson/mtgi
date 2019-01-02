@@ -5,6 +5,9 @@ import { HTMLTable } from "@blueprintjs/core";
 import { fetchCards, fetchCardDetails } from "../_actions/searchActions";
 import Details from './details';
 import { replaceCostWithImage } from '../_lib/formateer'
+import SuggestName from "./suggestions";
+
+
 
 class Seeker extends React.Component{
     constructor(props){
@@ -15,7 +18,8 @@ class Seeker extends React.Component{
                 types: '',
                 colors: '',
             },
-            cardsToAdd: []
+            cardsToAdd: [],
+            suggestions: []
         };
     }
 
@@ -116,6 +120,7 @@ class Seeker extends React.Component{
                             placeholder="Name"
                             onChange={this.handleChange('name')}
                         />
+                        <SuggestName />
                         <input
                             type="text"
                             value={this.state.searchElems.type}
