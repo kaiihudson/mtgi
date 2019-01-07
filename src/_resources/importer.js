@@ -1,8 +1,10 @@
 // Get all cards with a name cardName
-export default function suggestionGet (cardName){
+export default function suggestionGet(cardName){
     //start variables
     let suggestionArray = [];
     let cardLength = cardName.length;
+    // noise reduction
+    // enter the function only if the lenght of the search string is greater than 3
     if (cardLength >= 3){
         //start fetch
     fetch(`https://api.magicthegathering.io/v1/cards/?name=${cardName}`)
