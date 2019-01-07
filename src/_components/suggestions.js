@@ -38,13 +38,8 @@ class SuggestName extends React.Component {
     // Autosuggest will call this function every time you need to update suggestions.
     // You already implemented this logic above, so just use it.
     onSuggestionsFetchRequested = ({ value }) => {
-        let suggestions = suggestionGet(value);
-        if (suggestions !== null)
-            {this.setState({
-                // suggestions: getSuggestions(value)
-                suggestions: suggestions
-                });
-            }
+        let suggestionResponse = suggestionGet(value);
+        this.setState({suggestions: suggestionResponse})
     };
 
     // Autosuggest will call this function every time you need to clear suggestions.
@@ -55,7 +50,7 @@ class SuggestName extends React.Component {
     };
 
     render() {
-        //console.log(this.state.suggestions)
+        console.log(suggestionGet(this.state.value));
 
         const { value, suggestions } = this.state;
 
@@ -76,6 +71,7 @@ class SuggestName extends React.Component {
                 renderSuggestion={renderSuggestion}
                 inputProps={inputProps}
                 focusInputOnSuggestionClick={false}
+                highlightFirstSuggestion={true}
             />
         );
     }

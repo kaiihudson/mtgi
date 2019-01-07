@@ -1,3 +1,7 @@
+// query by uniques
+
+
+
 // Get all cards with a name cardName
 export default function suggestionGet(cardName){
     //start variables
@@ -16,7 +20,7 @@ export default function suggestionGet(cardName){
            console.log(suggestionArray)
         })}
     //return empty if no response and return the cardNames if there's response
-    return cardLength === 0 ? []: suggestionArray.filter(card =>
+    return cardLength === 0 ? [] : suggestionArray.filter(card =>
                 card.cards.name.toLowerCase().slice(0, cardLength) === cardName
             )
 }
