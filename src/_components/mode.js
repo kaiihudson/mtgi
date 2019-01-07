@@ -20,7 +20,7 @@ class Mode extends React.Component{
         };
     }
     render(){
-        console.log(this.props.loading)
+        //console.log(this.props.loading);
         return (
                 <div>
                     <Dialog isOpen={this.props.loading} canEscapeKeyClose={false} canOutsideClickClose={false}>
@@ -52,7 +52,7 @@ class Mode extends React.Component{
 }
 
 export default connect((state) => {
-    console.log(state.mainPage.howManyLoadings)
+    //console.log(state.mainPage.howManyLoadings)
     return {
         loading: state.mainPage.howManyLoadings > 0
     }
