@@ -43,7 +43,8 @@ class SuggestName extends React.Component {
             {this.setState({
                 // suggestions: getSuggestions(value)
                 suggestions: suggestions
-            })}
+                });
+            }
     };
 
     // Autosuggest will call this function every time you need to clear suggestions.
@@ -54,7 +55,7 @@ class SuggestName extends React.Component {
     };
 
     render() {
-        console.log(this.state.suggestions, suggestionGet(this.state.value))
+        //console.log(this.state.suggestions)
 
         const { value, suggestions } = this.state;
 
