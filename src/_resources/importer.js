@@ -1,11 +1,10 @@
 
 // Get all cards with a name cardName
-export default function suggestionGet(cardName){
+function suggestionGet(cardName){
     //start variables
-    let suggestionArray = [];
     let cardLength = cardName.length;
     // noise reduction
-    // enter the function only if the lenght of the search string is greater than 3
+    // enter the function only if the length of the search string is greater than 3
     if (cardLength >= 2){
         //start fetch
         let suggestionArray = fetch(`https://api.magicthegathering.io/v1/cards/?name=${cardName}`)
@@ -13,28 +12,31 @@ export default function suggestionGet(cardName){
             .then(rawData => rawData.json())
             // turn JSON into an Array for AutoSuggestReact.js to read it
             .then(jsonData => {
+                console.log(jsonData);
                 suggestionArray = jsonData;
                 console.log(suggestionArray)
-            })}
-    // async example functions
-    function getMatchingCard(cardName) {
+            })
+    }}
+
+function escapeRegexCharacters(str) {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+export default function getMatchingCard(cardName) {
+    let suggestionArray = suggestionGet(cardName);
         const escapedValue = escapeRegexCharacters(cardName.trim());
 
         if (escapedValue === '') {
-            return suggestionArray = [];
+            return [];
         }
 
         const regex = new RegExp('^' + escapedValue, 'i');
-
-        return suggestionArray.filter(card => regex.test(card.cards.name));
+        console.log(suggestionArray);
+        if ( suggestionArray ){
+            return suggestionArray.filter(card => regex.test(card.cards.name))
+        }
+        else {return  []}
     }
-    function escapeRegexCharacters(str) {
-        return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    }
-
-    //return empty if no response and return the cardNames if there's response
-    return getMatchingCard(cardName)
-}
 
 
 

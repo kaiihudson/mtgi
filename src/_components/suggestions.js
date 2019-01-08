@@ -1,7 +1,7 @@
 import Autosuggest from 'react-autosuggest'
 import React from "react";
 
-import suggestionGet from '../_resources/importer'
+import getMatchingCard from '../_resources/importer'
 
 /* --------------- */
 /*    Component    */
@@ -31,7 +31,7 @@ class SuggestName extends React.Component {
     }
 
     loadSuggestions(value) {
-        let suggestionGrab = suggestionGet(value);
+        let suggestionGrab = getMatchingCard(value);
         // Cancel the previous request
         if (this.lastRequestId !== null) {
             clearTimeout(this.lastRequestId);
