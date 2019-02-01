@@ -5,11 +5,13 @@
   "dependencies": {
     "@blueprintjs/core": "^3.10.0",
     "dotenv": "^6.2.0",
+    "mtgsdk": "^0.4.2",
     "mysql": "^2.16.0",
     "react": "^16.6.3",
+    "react-autosuggest": "^9.4.2",
     "react-dom": "^16.6.3",
     "react-redux": "^6.0.0",
-    "react-scripts": "2.1.1",
+    "react-scripts": "^2.1.2",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "thunk": "0.0.1"

@@ -22,9 +22,12 @@ class Register extends React.Component{
     };
     handleRegister = (e) => {
         e.preventDefault();
-        console.log("you've successfully pressed a button")
+
+        const newUser= `email: ${this.state.userdata.email}, username: ${this.state.userdata.username}, password: ${this.state.userdata.password}`;
+
+        console.log(newUser)
         //TODO: if conditional that checks for the changes in ddbb and triggers an action
-        //an action should be here to create a new user
+        //Call Action
     };
     render(){
         const mailIsTaken = '';
@@ -48,7 +51,6 @@ class Register extends React.Component{
         const isAvailable = '';
         let userProps;
         if (isAvailable){
-            //this uses react-bootstrap <- should i add?
             userProps = <Button
                 icon="small-cross"
                 intent="danger"
@@ -56,7 +58,6 @@ class Register extends React.Component{
                 disabled
             />
         } else{
-            //this uses react-bootstrap <- should i add?
             userProps = <Button
                 icon="small-tick"
                 intent="success"
@@ -64,25 +65,33 @@ class Register extends React.Component{
                 disabled
             />
         }
-        let magicconfirm = this.state.userdata.confirm,
-            magicpass = this.state.userdata.password;
+        let magicConfirm = this.state.userdata.confirm,
+            magicPass = this.state.userdata.password;
             let doTheyMatch = '';
-        function matchStatus(magicconfirm, magicpass) {
-            if (magicconfirm !== '' && magicconfirm === magicpass) {
-                doTheyMatch = <Button
-                    icon="confirm"
-                    intent="success"
-                    text="OK"
-                    disabled
-                />
-            } else if (magicconfirm !== '') {
-                doTheyMatch = <Button
+        if (magicPass.length < 8 && magicPass.length !== 0){
+            doTheyMatch =
+                <Button
                     icon="small-cross"
                     intent="danger"
-                    text="Passwords do not match"
+                    text="Password is too short!"
                     disabled
                 />
-            }
+        } else if (magicConfirm !== '' && magicConfirm === magicPass) {
+                    doTheyMatch =
+                        <Button
+                            icon="confirm"
+                            intent="success"
+                            text="OK"
+                            disabled
+                        />
+        } else if (magicConfirm !== '') {
+                    doTheyMatch =
+                        <Button
+                            icon="small-cross"
+                            intent="danger"
+                            text="Passwords do not match"
+                            disabled
+                        />
         }
         return(
             <div className="registerForm">
@@ -106,7 +115,7 @@ class Register extends React.Component{
                         <tr>
                             <td>Confirm Password</td>
                             <td><input type="password" placeholder="Confirm" onChange={this.handleChange('confirm')} value={this.state.userdata.confirm}/></td>
-                            <td>{matchStatus(magicconfirm, magicpass)}{doTheyMatch}</td>
+                            <td>{doTheyMatch}</td>
                         </tr>
                         <tr>
                             <td colSpan={2}>

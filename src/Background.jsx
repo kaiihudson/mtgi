@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchCardsImages } from "./Actions/BackgroundActions";
+import { fetchCardsImages } from "./_actions/BackgroundActions";
 
 class Background extends React.Component {
     componentDidMount(){
@@ -13,7 +13,7 @@ class Background extends React.Component {
                 <div className="gridCell" key={index}>
                     <img className="gridChild" alt="background" src={card.imageUrl} />
                 </div>
-        ))
+        ));
         return(
                 <div className="container1">
                     {cardsImages}
